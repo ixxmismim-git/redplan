@@ -1,0 +1,832 @@
+
+/* ==============================
+   PROGRESS LAYOUT
+============================== */
+
+#progressLayout {
+    position: absolute;
+    z-index: 20;
+
+    top: 49%;
+    left: 51%;
+    transform: translate(-50%, -50%);
+
+    width: 30%;
+    height: auto;
+
+    display: none;
+    flex-direction: column;
+    align-items: center;
+
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+/* TOP IMAGE 1 */
+
+.progress-top-images {
+    width: 99%;
+}
+
+.progress-top-images img {
+    display: block;
+    width: 99%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* TOP IMAGE 2 */
+
+.progress-top-images2 {
+    width: 100%;
+    margin-top: 2px;
+}
+
+.progress-top-images2 img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* PROGRESS BAR */
+
+.progress-bar-container {
+    position: relative;
+    display: block;
+    width: 70%;
+    height: 4px;
+    margin: 15px auto 0;
+
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#progressBar {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    background: #f10d3e;
+    border-radius: 5px;
+
+    transition: width 8s linear;
+}
+
+/* BOTTOM IMAGE */
+
+.progress-bottom-image {
+    width: 100%;
+}
+
+.progress-bottom-image img {
+    display: block;
+    width: 40%;
+    height: auto;
+    margin: 15px auto 0;
+
+    object-fit: contain;
+}
+
+
+/* ==============================
+   PLANE BOTTOM
+============================== */
+
+#plane-bottom-layout {
+    height: 184px;
+    min-height: 184px;
+    margin: 4px 0px 4px 0;
+
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+
+    background: #0e0e0e;
+}
+
+#bottom-left-layout,
+#bottom-right-layout {
+    flex: 1;
+    min-width: 0;
+
+    background: #1b1c1d;
+    border-radius: 20px;
+}
+
+/* ==============================
+   BOTTOM LEFT PARENT
+============================== */
+
+#bottom-left-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+/* ==============================
+   BOTTOM LEFT TOP
+============================== */
+
+#bottom-left-top {
+    position: relative;
+
+    flex: 1;
+    min-height: 0;
+
+    width: 100%;
+    max-width: 384px;
+    padding: 8px;
+    margin: 0 auto;
+
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-rows: 32px 1fr;
+}
+
+
+/* ==============================
+   BET / AUTOBET TABS
+============================== */
+
+#left-top-autobet {
+    position: relative;
+
+    grid-row: 1;
+
+    width: 208px;
+    height: 32px;
+    margin: 0 auto;
+}
+
+#left-autobet-container {
+    height: 100%;
+    width: 100%;
+    background: #141516;
+    border-radius: 64px;
+    border: solid 4px #141516;
+
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+#left-bet-btn,
+#left-autobet-btn {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+
+    background: transparent;
+    color: #a3a3a3;
+
+    cursor: pointer;
+}
+
+/* COMMON TAB */
+
+#left-autobet-container .tab {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+
+    text-align: center;
+    background: transparent;
+    border-radius: 32px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 0;
+
+    color: #a3a3a3;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: -.18px;
+
+    transition: background-color .25s ease-in,
+                color .25s ease-in;
+}
+/* INACTIVE TAB */
+#left-autobet-container .tab:not(.active) {
+    cursor: pointer;
+}
+
+/* INACTIVE TAB HOVER */
+#left-autobet-container .tab:not(.active):hover {
+    color: #d0021b;
+}
+
+/* ACTIVE TAB */
+
+#left-autobet-container .tab.active {
+    background: #2c2d30;
+    color: #ebebeb;
+    cursor: default;
+}
+
+/* AMOUNT BUTTON CLICK ANIMATION */
+
+#bet-amount-buttons button,
+#bet1-left-icon,
+#bet1-right-icon {
+    transition: transform 0.12s ease;
+}
+
+/* MOUSE PRESS */
+#bet-amount-buttons button:active,
+#bet1-left-icon:active,
+#bet1-right-icon:active {
+    transform: translateY(1px);
+}
+
+
+
+/* ==============================
+   LEFT BET LAYOUT
+============================== */
+
+#left-bet-layout {
+    position: relative;
+
+    grid-row: 2;
+    align-self: center;
+
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding-top: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+
+/* ==============================
+   BET BUTTON LAYOUT
+============================== */
+
+#bet-btn-layout {
+    flex: 1;
+    min-width: 0;
+    margin-left: 7px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+
+    border-radius: 16px;
+    border: solid 4px #141516;
+}
+
+#left-top-right-corner {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    background: #141516;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#left-top-right-corner img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #2c2d30;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* ==============================
+   BET BUTTON
+============================== */
+
+#betBtn {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    border: 1px solid #b2f2a3;
+    background-color: #28a909;
+    display: block;
+    cursor: pointer;
+    transition: background-color 0.3s ease,
+                border-color 0.3s ease,
+                color 0.3s ease;
+}
+#betBtn:hover {
+    color: #fff;
+    background-color: #36cb12;
+    border-color: #c6f5bb;
+}
+.bet-btn-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#betBtn .label {
+    font-size: 22px;
+    color: #fafafa;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.3px;
+    letter-spacing: .40px;
+}
+
+#betBtn .amount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #fafafa;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.20px;
+    letter-spacing: .40px;
+}
+
+#betBtn .currency {
+    font-size: 17px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.18px;
+    margin-left: 4px;
+}
+
+
+/* ==============================
+   WAITING BUTTON
+============================== */
+
+#waitingBtn {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    background-color: #cb011a;
+    border: solid 1px #ff7171;
+    display: none;
+}
+
+/* TEXT LAYOUT */
+
+.waiting-btn-content {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 4px;
+}
+
+.waiting-title {
+    color: #fafafa;
+    font-size: 22px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.20px;
+    letter-spacing: .40px;
+}
+
+.waiting-subtitle {
+    color: #fafafacc;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ==============================
+   CANCEL BUTTON
+============================== */
+
+#cancelBtn {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    background-color: #cb011a;
+    border: solid 1px #ff7171;
+    display: none;
+}
+
+
+/* ==============================
+   CASHOUT BUTTON
+============================== */
+
+#cashoutBtn {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    border: solid 1px #ffbd71;
+    background-color: #d07206;
+
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.cashout-btn-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#cashoutBtn .cashout-label {
+    font-size: 22px;
+    color: #fafafa;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.20px;
+    letter-spacing: .40px;
+}
+
+#cashoutBtn .cashout-amount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #fafafa;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.20px;
+    letter-spacing: .40px;
+}
+
+#cashoutBtn .cashout-currency {
+    font-size: 17px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.18px;
+    margin-left: 4px;
+}
+
+
+/* ==============================
+   BET 1 AMOUNT LAYOUT
+============================== */
+
+#amount-layout {
+    width: 140px;
+    min-width: 140px;
+}
+
+#bet1-edittext-layout {
+    width: 100%;
+    height: 32px;
+    padding: 4px;
+    transition: opacity .1s;
+    border-radius: 32px;
+    background-color: #141516;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* LEFT IMAGE DIV */
+
+#bet1-left-icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    background: #2C2D30;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* MIDDLE INPUT DIV */
+
+#bet1-input-layout {
+    flex: 1;
+    min-width: 0;
+}
+
+/* INPUT */
+
+#bet1-amount-input {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    border: none;
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+
+    color: #ccc;
+    text-align: center;
+    font-size: 16px;
+    padding: 0;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: .40px;
+}
+
+#bet1-amount-input::placeholder {
+    color: #777;
+    opacity: 1;
+}
+
+
+/* RIGHT IMAGE DIV */
+
+#bet1-right-icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    background: #2C2D30;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* LEFT & RIGHT IMAGES */
+
+#bet1-left-icon img,
+#bet1-right-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    padding: 7px;
+    cursor: pointer;
+}
+
+
+/* ==============================
+   BET 1 BOTTOM SETTINGS
+============================== */
+
+/* LEFT BET BOTTOM AUTOBET LAYOUT */
+
+#bottom-left-center-line {
+    width: 100%;
+    height: 1px;
+    background: #141516;
+    display: none;
+    flex-shrink: 0;
+}
+
+#buttom-left-buttom-container {
+    width: 100%;
+    max-width: 390px;
+    margin: 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    display: none;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+/* AUTO MODE: SHOW SETTINGS */
+
+#bottom-left-layout.auto-mode #bottom-left-center-line {
+    display: block;
+}
+
+#bottom-left-layout.auto-mode #buttom-left-buttom-container {
+    display: flex;
+}
+
+
+/* AUTO BET WRAPPER */
+
+#bet1-auto-bet-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+
+/* AUTO BET & CASHOUT SWITCH */
+
+#bet1-auto-bet-switch,
+#bet1-cashout-switch {
+    width: 36px;
+    height: 24px;
+    min-width: 36px;
+    background: #141516;
+    border-radius: 32px;
+
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    box-sizing: border-box;
+    justify-content: flex-start;
+
+    transition: background-color .1s ease;
+}
+
+#bet1-auto-bet-switch .oval,
+#bet1-cashout-switch .oval {
+    width: 16px;
+    height: 16px;
+    background: #2c2d30;
+    border-radius: 50%;
+    display: block;
+
+    transition: background-color .1s ease;
+}
+
+/* ON STATE */
+
+#bet1-auto-bet-switch.on,
+#bet1-cashout-switch.on {
+    justify-content: flex-end;
+}
+
+#bet1-auto-bet-switch.on .oval,
+#bet1-cashout-switch.on .oval {
+    background: #a3a3a3;
+}
+
+
+/* ==============================
+   AUTO CASHOUT WRAPPER
+============================== */
+
+#bet1-cashout-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+#bet1-cashout-left {
+    width: auto;
+    flex: 0 0 auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+
+/* CASHOUT INPUT RIGHT DIV */
+
+#bet1-cashout-right {
+    width: 80px;
+    min-width: 80px;
+    flex: 0 0 80px;
+    height: 24px;
+    margin-right: 2px;
+
+    background-color: #141516;
+    border-radius: 50px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#bet1-cashout-input-layout {
+    flex: 1;
+    min-width: 0;
+}
+
+#bet1-cashout-input {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    margin-left: 2px;
+
+    border: none;
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+
+    letter-spacing: .40px;
+    color: #ccc;
+    text-align: center;
+    font-size: 12px;
+    padding: 0;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+}
+
+
+/* CASHOUT ICON */
+
+#bet1-cashout-icon {
+    width: 22px;
+    height: 24px;
+    min-width: 22px;
+    flex: 0 0 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#bet1-cashout-icon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+
+
+/* ==============================
+   BET 1 LABELS
+============================== */
+
+#bet1-auto-bet-wrapper label,
+#bet1-cashout-left .lable2 {
+    color: #ccc;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.15px;
+    margin-left: 0;
+    letter-spacing: 0.40px;
+}
+
+
+/* ==============================
+   BET AMOUNT BUTTONS
+============================== */
+
+#bet-amount-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.bet-amount-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.bet-amount-row button {
+    font-size: 14px;
+    width: 68px;
+    height: 24px;
+    margin-top: 4px;
+    line-height: 1;
+    padding: 0;
+    background: #141516;
+    border: none;
+}
+
+#btn-100,
+#btn-200,
+#btn-500,
+#btn-10000 {
+    width: 68px;
+    height: 24px;
+    margin-top: 4px;
+    line-height: 1;
+    padding: 0;
+
+    background: #141516;
+    border-radius: 32px;
+    border: none;
+
+    font-size: 13.5px;
+    text-align: center;
+    color: #ffffff80;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.15px;
+    letter-spacing: .40px;
+    cursor: pointer;
+}
+
+/* SEPARATE LEFT MARGIN */
+
+#btn-200,
+#btn-10000 {
+    margin-left: 4px;
+}
