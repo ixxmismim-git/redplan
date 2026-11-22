@@ -1,0 +1,350 @@
+/* =====================================
+   POPUP PARENT
+===================================== */
+
+#popup-parent {
+    position: fixed;
+    overflow: hidden;
+    width: 340px;
+    height: 180px;
+    top: 0;
+    left: 38%;
+    right: 0;
+    bottom: 0;
+    z-index: 999999;
+    display: block;
+    padding-top: 11px;
+}
+#pxLine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    z-index: 999;
+    background-color: #1b1c1d;
+    pointer-events: none;
+}
+
+
+/* =====================================
+   CASHOUT POPUP COMMON DESIGN
+===================================== */
+
+#noBalancePopup-content {
+    width: 97%;
+    height: 48px;
+    display: flex;
+    border-radius: 30px;
+
+    border: 0.6px solid #AE2F2F;
+
+    background: linear-gradient(
+        to left,
+        #3e1111cc,
+        #2b1b1ba4
+    );
+
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#noBalancePopup-text {
+    margin-left: 16px;
+    font-family: 'Inter Light', sans-serif;
+    font-size: 12.2px;
+    font-weight: 300;
+    color: #C5C5C5;
+    white-space: nowrap;
+}
+
+#noBalancePopup-icon {
+    padding: 7px;
+    width: 35px;
+    height: 32px;
+    min-width: 35px;
+    border-radius: 50%;
+    background: #4e1d1db6;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#noBalancePopup-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#noBalancePopupStack {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 11px;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    pointer-events: none;
+    z-index: 998;
+}
+
+#noBalancePopup {
+    display: none;
+}
+
+.no-balance-popup-item {
+    position: relative;
+
+    width: 100%;
+    height: 49px;
+    min-height: 49px;
+
+    margin-bottom: 4px;
+
+    flex-shrink: 0;
+    box-sizing: border-box;
+
+    overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#cashoutPop1,
+#cashoutPop2 {
+    width: 97%;
+    height: 48px;
+    display: flex;
+    border-radius: 30px;
+    border: 0.6px solid #3D7A45;
+    background: linear-gradient(
+        to left,
+        #284A1F,
+        #23271F
+    );
+    box-sizing: border-box;
+}
+
+#cashoutPop2 {
+    margin-top: 4px;
+}
+
+
+/* =====================================
+   LEFT AND RIGHT LAYOUT
+===================================== */
+
+#cashoutPop1-left,
+#cashoutPop1-right,
+#cashoutPop2-left,
+#cashoutPop2-right {
+    width: 50%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+/* =====================================
+   LEFT TEXT LAYOUT
+===================================== */
+
+#cashoutPop1-left,
+#cashoutPop2-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+/* =====================================
+   CASHOUT TITLE AND MULTIPLIER
+===================================== */
+
+#cashoutPop1-title,
+#cashoutPop1-multiplier,
+#cashoutPop2-title,
+#cashoutPop2-multiplier {
+    display: block;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+#cashoutPop1-title,
+#cashoutPop2-title {
+    font-family: sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    color: #A1A69E;
+    margin-bottom: 1px;
+}
+
+#cashoutPop1-multiplier,
+#cashoutPop2-multiplier {
+    font-family: sans-serif;
+    font-size: 11.7px;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    color: #D1D5D1;
+    margin-top: 1px;
+}
+
+
+/* =====================================
+   RIGHT LAYOUT
+===================================== */
+
+#cashoutPop1-right,
+#cashoutPop2-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+/* =====================================
+   RIGHT ICON
+===================================== */
+
+#cashoutPop1-right-icon,
+#cashoutPop2-right-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 60px;
+    background: #315127;
+    flex-shrink: 0;
+    margin-right: 9px;
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+#cashoutPop1-right-icon img,
+#cashoutPop2-right-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* =====================================
+   WIN AMOUNT BACKGROUND
+===================================== */
+
+#cashoutPop1-right-left,
+#cashoutPop2-right-left {
+    width: 115px;
+    height: calc(100% - 8px);
+    position: relative;
+    background: #4f832a;
+    border: 0.8px solid #548038;
+    border-radius: 30px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    overflow: hidden;
+    margin-right: 5px;
+}
+
+
+/* =====================================
+   LEFT STAR
+===================================== */
+
+#cashoutPop1-left-star,
+#cashoutPop2-left-star {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    left: 3px;
+    object-fit: contain;
+}
+
+
+/* =====================================
+   RIGHT STAR
+===================================== */
+
+#cashoutPop1-right-star,
+#cashoutPop2-right-star {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    right: 3px;
+    object-fit: contain;
+    transform: rotateY(180deg);
+}
+
+
+/* =====================================
+   WIN BDT TITLE
+===================================== */
+
+#cashoutPop1-win-title,
+#cashoutPop2-win-title {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 15.5px;
+    transform: translateY(-100%);
+    font-family: sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: #DDE8D4;
+    text-align: center;
+}
+
+
+/* =====================================
+   WIN AMOUNT
+===================================== */
+
+#cashoutPop1-win-amount,
+#cashoutPop2-win-amount {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 16px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    text-align: center;
+    text-shadow: 0 2px 2px #66000000;
+}
+#cashoutPop1,
+#cashoutPop2 {
+    display: none;
+}
+
+/* Popup 1 Gone হলে */
+#popup-parent.popup1-gone #cashoutPop2 {
+    margin-top: 0;
+}
+
+
+

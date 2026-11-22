@@ -1,0 +1,679 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RedPlan</title>
+
+    <!-- CSS FILES -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bet-1.css">
+    <link rel="stylesheet" href="css/bet-2.css">
+    <link rel="stylesheet" href="css/popup.css">
+</head>
+
+<body>
+
+    <!-- GAME CONTAINER -->
+    <div id="game-container">
+
+        <!-- ==============================
+             TOP HEADER
+        ============================== -->
+        <header id="top-header">
+
+            <!-- LEFT: LOGO -->
+            <div id="header-left">
+                <img src="assets/images/aviator-logo.svg" alt="Logo">
+            </div>
+
+            <!-- RIGHT: ELEMENTS -->
+            <div id="header-right">
+
+                <!-- BALANCE -->
+                <div id="header-balance">
+                    <span>10,000.00</span>
+                </div>
+
+                <!-- CURRENCY -->
+                <div id="header-currency">BDT</div>
+
+                <!-- IMAGE 1 -->
+                <div id="header-img-1">
+                    <img src="assets/images/burger.svg" alt="">
+                </div>
+
+                <!-- IMAGE 2 -->
+                <div id="header-img-2">
+                    <img src="assets/images/chat.svg" alt="">
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ==============================
+             MAIN LAYOUT
+        ============================== -->
+        <main id="main-layout">
+
+            <!-- PREVIOUS HISTORY -->
+            <section id="previous-history">
+            </section>
+            <!-- ==============================
+                 PLANE LAYOUT
+            ============================== -->
+            <div id="plane-parent-layout">
+                <section id="plane-layout">
+                    <!-- ==============================
+                        HISTORY OVERLAY LAYOUT && TOP LAYOUT
+                    ============================== -->
+                    <div id="history-overlay-layout">
+
+                        <!-- HISTORY OVERLAY HEADER -->
+                        <div id="history-overlay-header">
+
+                            <!-- LEFT TEXT -->
+                            <div id="history-overlay-title">
+                                Round History
+                            </div>
+
+                            <!-- RIGHT DIV -->
+                            <div id="history-overlay-right">
+                                <img src="assets/images/close-icon.svg" alt="">
+                            </div>
+
+                        </div>
+
+                        <!-- HISTORY LIST -->
+                        <div id="history-layout">
+                            <div id="history-overlay-items">
+                            </div>
+                        </div>
+
+                    </div>
+        
+                    <div id="plane-top-layout">
+
+                        <!-- HISTORY CONTAINER -->
+                        <div id="history-container">
+
+                            <div id="history-items"></div>
+
+                            <div id="history-right">
+
+                                <div id="history-right-inner">
+                                    <img src="assets/images/show-more-icon.svg" alt="Show more">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ==============================
+                        PLANE ANIMATION LAYOUT
+                    ============================== -->
+                    <div id="plane-animation-layout">
+
+                        <!-- ANIMATION CANVAS -->
+                        <canvas id="rotateCanvas"></canvas>
+                        <canvas id="lightingCanvas"></canvas>
+                        <canvas id="crashCanvas"></canvas>
+
+                        <!-- MULTIPLIER -->
+                        <div id="multiplier">1.00x</div>
+
+                        <!-- CRASH MESSAGE -->
+                        <div id="flewAway">FLEW AWAY!</div>
+
+
+                        <!-- PROGRESS LAYOUT -->
+                        <div id="progressLayout">
+
+                            <!-- TOP IMAGE 1 -->
+                            <div class="progress-top-images">
+                                <img src="assets/images/ufc_u.png" alt="">
+                            </div>
+
+                            <!-- TOP IMAGE 2 -->
+                            <div class="progress-top-images2">
+                                <img src="assets/images/parthner.png" alt="">
+                            </div>
+
+                            <!-- PROGRESS BAR -->
+                            <div class="progress-bar-container">
+                                <div id="progressBar"></div>
+                            </div>
+
+                            <!-- BOTTOM IMAGE -->
+                            <div class="progress-bottom-image">
+                                <img src="assets/images/spribe_official.png" alt="">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ==============================
+                        BOTTOM LAYOUT
+                    ============================== -->
+                    <div id="plane-bottom-layout">
+                        <!-- ==============================
+                            BOTTOM LEFT LAYOUT - BET 1
+                        ============================== -->
+                        <div id="bottom-left-layout">
+                            <div id="bottom-left-top">
+                                <!-- NEW TOP RIGHT DIV -->
+                            <div id="left-top-right-corner">
+                                <img src="assets/images/add-icon.svg" alt="">
+                                </div>
+
+                                <!-- BET / AUTOBET TABS -->
+                                <div id="left-top-autobet">
+
+                                    <div id="left-autobet-container">
+
+                                        <button id="left-bet-btn" class="tab active">
+                                            Bet
+                                        </button>
+
+                                        <button id="left-autobet-btn" class="tab">
+                                            Auto
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- LEFT BET LAYOUT -->
+                                <div id="left-bet-layout">
+                                    <!-- AMOUNT LAYOUT -->
+                                    <div id="amount-layout">
+                                        <!-- BET 1 INPUT -->
+                                        <div id="bet1-edittext-layout">
+                                            <!-- LEFT IMAGE -->
+                                            <div id="bet1-left-icon">
+                                                <img src="assets/images/minus-grey.svg" alt="">
+                                            </div>
+                                            <!-- INPUT LAYOUT -->
+                                            <div id="bet1-input-layout">
+                                                <input
+                                                    type="text"
+                                                    id="bet1-amount-input"
+                                                    value="10.00"
+                                                    placeholder="10"
+                                                >
+                                            </div>
+                                            <!-- RIGHT IMAGE -->
+                                            <div id="bet1-right-icon">
+                                                <img src="assets/images/plus-grey.svg" alt="">
+                                            </div>
+                                        </div>
+
+
+                                        <!-- BET AMOUNT BUTTONS -->
+                                        <div id="bet-amount-buttons">
+
+                                            <div class="bet-amount-row">
+
+                                                <button id="btn-100">100</button>
+                                                <button id="btn-200">200</button>
+
+                                            </div>
+
+                                            <div class="bet-amount-row">
+
+                                                <button id="btn-500">500</button>
+                                                <button id="btn-10000">10,000</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- BET BUTTON LAYOUT -->
+                                    <div id="bet-btn-layout">
+
+
+                                        <!-- BET BUTTON -->
+                                        <button id="betBtn" class="bet-action-btn">
+
+                                            <span class="bet-btn-content">
+
+                                                <label class="label">
+                                                    Bet
+                                                </label>
+
+                                                <label class="amount">
+                                                    <span>10,000.00</span>
+                                                    <span class="currency">BDT</span>
+                                                </label>
+
+                                            </span>
+
+                                        </button>
+
+
+                                        <!-- WAITING BUTTON -->
+                                        <button id="waitingBtn" class="bet-action-btn">
+
+                                            <span class="waiting-btn-content">
+
+                                                <span class="waiting-title">
+                                                    Cancel
+                                                </span>
+
+                                                <span class="waiting-subtitle">
+                                                    Waiting for next round
+                                                </span>
+
+                                            </span>
+
+                                        </button>
+
+
+                                        <!-- CANCEL BUTTON -->
+                                        <button id="cancelBtn" class="bet-action-btn">
+
+                                            <span class="waiting-title">
+                                                Cancel
+                                            </span>
+
+                                        </button>
+
+
+                                        <!-- CASHOUT BUTTON -->
+                                        <button id="cashoutBtn" class="bet-action-btn">
+
+                                            <span class="cashout-btn-content">
+
+                                                <label class="cashout-label">
+                                                    Cashout
+                                                </label>
+
+                                                <label class="cashout-amount">
+                                                    <span>10,000.00</span>
+                                                    <span class="cashout-currency">BDT</span>
+                                                </label>
+
+                                            </span>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- BET 1 CENTER LINE -->
+                            <div id="bottom-left-center-line"></div>
+                            <!-- BET 1 BOTTOM SETTINGS -->
+                            <div id="buttom-left-buttom-container">
+                                <!-- LEFT DIV: AUTO BET -->
+                                <div id="bet1-auto-bet-wrapper">
+                                    <label class="lable2">Auto Bet</label>
+                                    <div id="bet1-auto-bet-switch" class="input-switch off">
+                                        <span class="oval"></span>
+                                    </div>
+                                </div>
+                                <!-- RIGHT DIV: AUTO CASH OUT -->
+                                <div id="bet1-cashout-wrapper">
+                                    <div id="bet1-cashout-left">
+                                        <label class="lable2">Auto Cash Out</label>
+                                        <div id="bet1-cashout-switch" class="input-switch off">
+                                            <span class="oval"></span>
+                                        </div>
+                                    </div>
+                                    <!-- CASHOUT INPUT -->
+                                    <div id="bet1-cashout-right">
+                                        <div id="bet1-cashout-input-layout">
+                                            <input
+                                                type="text"
+                                                id="bet1-cashout-input"
+                                                inputmode="decimal"
+                                                value="1.10"
+                                            >
+                                        </div>
+                                        <!-- RIGHT IMAGE -->
+                                        <div id="bet1-cashout-icon">
+                                            <img src="assets/images/auto-cash-cross.svg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ==============================
+                            BOTTOM RIGHT LAYOUT - BET 2
+                        ============================== -->
+                        <div id="bottom-right-layout">
+
+                            <div id="bottom-right-top">
+
+                                <div id="right-top-right-corner">
+                                <img src="assets/images/remove-icon.svg" alt="">
+                                </div>
+                                <!-- BET / AUTOBET TABS -->
+                                <div id="right-top-autobet">
+
+                                    <div id="right-autobet-container">
+
+                                        <button id="right-bet-btn" class="tab active">
+                                            Bet
+                                        </button>
+
+                                        <button id="right-autobet-btn" class="tab">
+                                            Auto
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- RIGHT BET LAYOUT -->
+                                <div id="right-bet-layout">
+
+
+                                    <!-- AMOUNT LAYOUT -->
+                                    <div id="bet2-amount-layout">
+
+
+                                        <!-- BET 2 INPUT -->
+                                        <div id="bet2-edittext-layout">
+
+                                            <!-- LEFT IMAGE -->
+                                            <div id="bet2-left-icon">
+                                                <img src="assets/images/minus-grey.svg" alt="">
+                                            </div>
+
+                                            <!-- INPUT LAYOUT -->
+                                            <div id="bet2-input-layout">
+
+                                                <input
+                                                    type="text"
+                                                    id="bet2-amount-input"
+                                                    value="10.00"
+                                                    placeholder="10"
+                                                >
+
+                                            </div>
+
+                                            <!-- RIGHT IMAGE -->
+                                            <div id="bet2-right-icon">
+                                                <img src="assets/images/plus-grey.svg" alt="">
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- BET AMOUNT BUTTONS -->
+                                        <div id="bet2-amount-buttons">
+
+                                            <div class="bet2-amount-row">
+
+                                                <button id="bet2-btn-100">100</button>
+                                                <button id="bet2-btn-200">200</button>
+
+                                            </div>
+
+                                            <div class="bet2-amount-row">
+
+                                                <button id="bet2-btn-500">500</button>
+                                                <button id="bet2-btn-10000">10,000</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- BET BUTTON LAYOUT -->
+                                    <div id="bet2-btn-layout">
+
+
+                                        <!-- BET BUTTON -->
+                                        <button id="bet2-betBtn" class="bet-action-btn">
+
+                                            <span class="bet2-btn-content">
+
+                                                <label class="label">
+                                                    Bet
+                                                </label>
+
+                                                <label class="amount">
+                                                    <span>10,000.00</span>
+                                                    <span class="currency">BDT</span>
+                                                </label>
+
+                                            </span>
+
+                                        </button>
+
+
+                                        <!-- WAITING BUTTON -->
+                                        <button id="bet2-waitingBtn" class="bet-action-btn">
+
+                                            <span class="waiting-btn-content">
+
+                                                <span class="waiting-title">
+                                                    Cancel
+                                                </span>
+
+                                                <span class="waiting-subtitle">
+                                                    Waiting for next round
+                                                </span>
+
+                                            </span>
+
+                                        </button>
+
+
+                                        <!-- CANCEL BUTTON -->
+                                        <button id="bet2-cancelBtn" class="bet-action-btn">
+
+                                            <span class="waiting-title">
+                                                Cancel
+                                            </span>
+
+                                        </button>
+
+
+                                        <!-- CASHOUT BUTTON -->
+                                        <button id="bet2-cashoutBtn" class="bet-action-btn">
+
+                                            <span class="cashout-btn-content">
+
+                                                <label class="cashout-label">
+                                                    Cashout
+                                                </label>
+
+                                                <label class="cashout-amount">
+                                                    <span>10,000.00</span>
+                                                    <span class="cashout-currency">BDT</span>
+                                                </label>
+
+                                            </span>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- BET 2 CENTER LINE -->
+                            <div id="bottom-right-center-line"></div>
+
+
+                            <!-- BET 2 BOTTOM SETTINGS -->
+                            <div id="bet2-bottom-container">
+
+
+                                <!-- LEFT DIV: AUTO BET -->
+                                <div id="bet2-auto-bet-wrapper">
+
+                                    <label class="lable2">Auto Bet</label>
+
+                                    <div id="bet2-auto-bet-switch" class="input-switch off">
+                                        <span class="oval"></span>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- RIGHT DIV: AUTO CASH OUT -->
+                                <div id="bet2-cashout-wrapper">
+
+                                    <div id="bet2-cashout-left">
+
+                                        <label class="lable2">Auto Cash Out</label>
+
+                                        <div id="bet2-cashout-switch" class="input-switch off">
+                                            <span class="oval"></span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- CASHOUT INPUT -->
+                                    <div id="bet2-cashout-right">
+
+                                        <div id="bet2-cashout-input-layout">
+
+                                            <input
+                                                type="text"
+                                                id="bet2-cashout-input"
+                                                inputmode="decimal"
+                                                value="1.10"
+                                            >
+
+                                        </div>
+
+                                        <!-- RIGHT IMAGE -->
+                                        <div id="bet2-cashout-icon">
+                                            <img src="assets/images/auto-cash-cross.svg" alt="">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                
+                </section>
+
+                <div id="horizontal-scroll">
+
+                    <div id="horizontal-scroll-left"></div>
+
+                    <div id="horizontal-scroll-center"></div>
+
+                    <div id="horizontal-scroll-right"></div>
+
+                </div>
+            </div>
+            
+            <div id="popup-parent">
+                    <div id="pxLine"></div>
+                    
+                    <div id="cashoutPopupLayout">
+                    <div id="cashoutPop1">
+                        <div id="cashoutPop1-left">
+                                <span id="cashoutPop1-title">You have cashed out!</span>
+                                <span id="cashoutPop1-multiplier">1.25x</span>
+                        </div>
+                        <div id="cashoutPop1-right">
+                                <div id="cashoutPop1-right-left">
+                                    <img id="cashoutPop1-left-star" src="assets/images/popup_ster.png">
+                                    <img id="cashoutPop1-right-star" src="assets/images/popup_ster.png">
+                                    <span id="cashoutPop1-win-title">Win BDT</span>
+                                    <span id="cashoutPop1-win-amount">245351.79</span>
+                                </div>
+                                  <div id="cashoutPop1-right-icon">
+                                    <img id="cashoutPop1-avatar" src="assets/images/close-icon.svg" alt="">
+                                </div>
+                        </div>
+                    </div>
+                   <div id="cashoutPop2">
+                    <div id="cashoutPop2-left">
+                        <span id="cashoutPop2-title">You have cashed out!</span>
+                        <span id="cashoutPop2-multiplier">2.50x</span>
+                    </div>
+
+                    <div id="cashoutPop2-right">
+                        <div id="cashoutPop2-right-left">
+                            <img id="cashoutPop2-left-star" src="assets/images/popup_ster.png">
+                            <img id="cashoutPop2-right-star" src="assets/images/popup_ster.png">
+
+                            <span id="cashoutPop2-win-title">Win BDT</span>
+                            <span id="cashoutPop2-win-amount">125000.50</span>
+                        </div>
+
+                        <div id="cashoutPop2-right-icon">
+                            <img id="cashoutPop2-avatar" src="assets/images/close-icon.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                        <!-- No Balance Popup -->
+
+                   <!-- No Balance Popup Stack -->
+                    <div id="noBalancePopupStack"></div>
+                    <!-- No Balance Popup Template -->
+                    <div id="noBalancePopup">
+                        <div id="noBalancePopup-content">
+                            <span id="noBalancePopup-text">
+                                Not enough balance
+                            </span>
+
+                            <div id="noBalancePopup-icon">
+                                <img src="assets/images/close-top.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+        </main>
+
+    </div>
+
+
+
+    <!-- ==============================
+         ANIMATION SCRIPTS
+    ============================== -->
+    <script src="js/animations/rotate.js"></script>
+    <script src="js/animations/lighting.js"></script>
+    <script src="js/animations/crash-graph.js"></script>
+
+    <!-- ==============================
+         GAME SCRIPTS
+    ============================== -->
+    <script src="js/multiplier.js"></script>
+    <script src="js/historyManager.js"></script>
+    <script src="js/roundmanager.js"></script>
+    <script src="js/balanceManager.js"></script>
+    <script src="js/popup/no-balance-popup.js"></script>
+    <script src="js/popup/cashout-popup.js"></script>
+    <script src="js/bet-1.js"></script>
+    <script src="js/bet-2.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

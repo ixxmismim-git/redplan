@@ -1,0 +1,882 @@
+
+/* ==============================
+   BET 2 TOP LAYOUT
+============================== */
+
+#bottom-right-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+#bottom-right-top {
+    position: relative;
+
+    flex: 1;
+    min-height: 0;
+
+    padding: 8px;
+    width: 100%;
+    max-width: 384px;
+    margin: 0 auto;
+    
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-rows: 32px 1fr;
+}
+
+/* ==============================
+   BET / AUTOBET TABS
+============================== */
+
+#right-top-autobet {
+    position: relative;
+    grid-row: 1;
+
+    width: 208px;
+    height: 32px;
+    margin: 0 auto;
+}
+
+#right-autobet-container {
+    height: 100%;
+    width: 100%;
+    background: #141516;
+    border-radius: 64px;
+    border: solid 4px #141516;
+
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+#right-bet-btn,
+#right-autobet-btn {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+
+    background: transparent;
+    color: #a3a3a3;
+
+    cursor: pointer;
+}
+
+/* COMMON TAB */
+
+#right-autobet-container .tab {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+
+    text-align: center;
+    background: transparent;
+    border-radius: 32px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 0;
+
+    color: #a3a3a3;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: -.18px;
+
+    transition: background-color .25s ease-in,
+                color .25s ease-in;
+}
+
+/* ACTIVE TAB */
+
+#right-autobet-container .tab.active {
+    background: #2c2d30;
+    color: #ebebeb;
+     cursor: default;
+}
+/* INACTIVE TAB */
+#right-autobet-container .tab:not(.active) {
+    cursor: pointer;
+}
+
+/* INACTIVE TAB HOVER */
+#right-autobet-container .tab:not(.active):hover {
+    color: #d0021b;
+}
+/* ==============================
+   BET 2 BUTTON PRESS ANIMATION
+============================== */
+
+.bet2-amount-row button,
+#bet2-left-icon,
+#bet2-right-icon {
+    transition: transform 0.12s ease;
+}
+
+/* MOUSE PRESS */
+.bet2-amount-row button:active,
+#bet2-left-icon:active,
+#bet2-right-icon:active {
+    transform: translateY(1px);
+}
+
+
+/* ==============================
+   RIGHT BET LAYOUT
+============================== */
+
+#right-bet-layout {
+    position: relative;
+
+    grid-row: 2;
+    align-self: center;
+
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding-top: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+
+
+
+#right-top-right-corner {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    background: #141516;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#right-top-right-corner img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #2c2d30;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* ==============================
+   BET BUTTON LAYOUT
+============================== */
+
+#bet2-btn-layout {
+    flex: 1;
+    min-width: 0;
+    margin-left: 7px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+
+    border-radius: 16px;
+    border: solid 4px #141516;
+}
+
+
+/* ==============================
+   BET BUTTON
+============================== */
+
+#bet2-betBtn {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    border: 1px solid #b2f2a3;
+    background-color: #28a909;
+    display: block;
+    cursor: pointer;
+    transition: background-color 0.3s ease,
+                border-color 0.3s ease,
+                color 0.3s ease;
+}
+#bet2-betBtn:hover {
+    color: #fff;
+    background-color: #36cb12;
+    border-color: #c6f5bb;
+}
+
+.bet2-btn-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#bet2-betBtn .label {
+    
+    font-size: 22px;
+    color: #fafafa;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.3px;
+    letter-spacing: .40px;
+}
+
+#bet2-betBtn .amount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #fafafa;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.20px;
+    letter-spacing: .40px;
+}
+
+#bet2-betBtn .currency {
+    font-size: 17px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.18px;
+    margin-left: 4px;
+}
+
+
+/* ==============================
+   WAITING BUTTON
+============================== */
+
+#bet2-waitingBtn {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background-color: #cb011a;
+    border: solid 1px #ff7171;
+    display: none;
+}
+
+
+/* ==============================
+   CANCEL BUTTON
+============================== */
+
+#bet2-cancelBtn {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background-color: #cb011a;
+    border: solid 1px #ff7171;
+    display: none;
+}
+
+
+/* ==============================
+   CASHOUT BUTTON
+============================== */
+
+#bet2-cashoutBtn {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    border: solid 1px #ffbd71;
+    background-color: #d07206;
+
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+
+/* ==============================
+   CASHOUT BUTTON TEXT
+============================== */
+
+#bet2-cashoutBtn .cashout-label {
+    font-size: 22px;
+    color: #fafafa;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.20px;
+    letter-spacing: .40px;
+}
+
+#bet2-cashoutBtn .cashout-amount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #fafafa;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.20px;
+    letter-spacing: .40px;
+}
+
+#bet2-cashoutBtn .cashout-currency {
+    font-size: 17px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.18px;
+    margin-left: 4px;
+}
+
+
+/* ==============================
+   BET 2 AMOUNT LAYOUT
+============================== */
+
+#bet2-amount-layout {
+    width: 140px;
+    min-width: 140px;
+}
+
+#bet2-edittext-layout {
+    width: 100%;
+    height: 32px;
+    padding: 4px;
+    transition: opacity .1s;
+    border-radius: 32px;
+    background-color: #141516;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+/* LEFT IMAGE DIV */
+
+#bet2-left-icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    background: #2C2D30;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* MIDDLE INPUT DIV */
+
+#bet2-input-layout {
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* INPUT */
+
+#bet2-amount-input {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    border: none;
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+
+    color: #ccc;
+    text-align: center;
+    font-size: 16px;
+    padding: 0;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: .40px;
+}
+
+#bet2-amount-input::placeholder {
+    color: #777;
+    opacity: 1;
+}
+
+
+/* RIGHT IMAGE DIV */
+
+#bet2-right-icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    background: #2C2D30;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* LEFT & RIGHT IMAGES */
+
+#bet2-left-icon img,
+#bet2-right-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    padding: 7px;
+    cursor: pointer;
+}
+
+
+/* ==============================
+   BET 2 BOTTOM SETTINGS
+============================== */
+
+#bottom-right-center-line {
+    width: 100%;
+    height: 1px;
+    background: #141516;
+    display: none;
+    flex-shrink: 0;
+}
+
+#bet2-bottom-container {
+    width: 100%;
+    max-width: 390px;
+    margin: 0 auto;
+
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 8px 12px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+/* AUTO MODE: SHOW SETTINGS */
+
+#bottom-right-layout.auto-mode #bottom-right-center-line {
+    display: block;
+}
+
+#bottom-right-layout.auto-mode #bet2-bottom-container {
+    display: flex;
+}
+
+
+/* ==============================
+   AUTO BET WRAPPER
+============================== */
+
+#bet2-auto-bet-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+
+/* ==============================
+   AUTO BET & CASHOUT SWITCH
+============================== */
+
+#bet2-auto-bet-switch,
+#bet2-cashout-switch {
+    width: 36px;
+    height: 24px;
+    min-width: 36px;
+    background: #141516;
+    border-radius: 32px;
+
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    box-sizing: border-box;
+    justify-content: flex-start;
+
+    transition: background-color .1s ease;
+}
+
+#bet2-auto-bet-switch .oval,
+#bet2-cashout-switch .oval {
+    width: 16px;
+    height: 16px;
+    background: #2c2d30;
+    border-radius: 50%;
+    display: block;
+
+    transition: background-color .1s ease;
+}
+
+
+/* ON STATE */
+
+#bet2-auto-bet-switch.on,
+#bet2-cashout-switch.on {
+    justify-content: flex-end;
+}
+
+#bet2-auto-bet-switch.on .oval,
+#bet2-cashout-switch.on .oval {
+    background: #a3a3a3;
+}
+
+
+/* ==============================
+   AUTO CASHOUT WRAPPER
+============================== */
+
+#bet2-cashout-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+#bet2-cashout-left {
+    width: auto;
+    flex: 0 0 auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+
+/* CASHOUT INPUT RIGHT DIV */
+
+#bet2-cashout-right {
+    width: 80px;
+    min-width: 80px;
+    flex: 0 0 80px;
+    height: 24px;
+    margin-right: 2px;
+
+    background-color: #141516;
+    border-radius: 50px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#bet2-cashout-input-layout {
+    flex: 1;
+    min-width: 0;
+}
+
+#bet2-cashout-input {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    margin-left: 2px;
+
+    border: none;
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+
+    letter-spacing: .40px;
+    color: #ccc;
+    text-align: center;
+    font-size: 12px;
+    padding: 0;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+}
+
+
+/* CASHOUT ICON */
+
+#bet2-cashout-icon {
+    width: 22px;
+    height: 24px;
+    min-width: 22px;
+    flex: 0 0 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#bet2-cashout-icon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+
+
+/* ==============================
+   BET 2 LABELS
+============================== */
+
+#bet2-auto-bet-wrapper label,
+#bet2-cashout-left .lable2 {
+    color: #ccc;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.15px;
+    margin-left: 0;
+    letter-spacing: 0.40px;
+}
+
+
+/* ==============================
+   BET 2 AMOUNT BUTTONS
+============================== */
+
+#bet2-amount-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.bet2-amount-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.bet2-amount-row button {
+    font-size: 14px;
+    width: 68px;
+    height: 24px;
+    margin-top: 4px;
+    line-height: 1;
+    padding: 0;
+    background: #141516;
+    border: none;
+}
+
+#bet2-btn-100,
+#bet2-btn-200,
+#bet2-btn-500,
+#bet2-btn-10000 {
+    width: 68px;
+    height: 24px;
+    margin-top: 4px;
+    line-height: 1;
+    padding: 0;
+
+    background: #141516;
+    border-radius: 32px;
+    border: none;
+
+    font-size: 13px;
+    text-align: center;
+    color: #ffffff80;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.15px;
+    letter-spacing: .50px;
+    cursor: pointer;
+}
+
+
+/* SEPARATE LEFT MARGIN */
+
+#bet2-btn-200,
+#bet2-btn-10000 {
+    margin-left: 4px;
+}
+/* BET 2 AUTO MODE */
+
+
+
+
+
+/* ==============================
+   BET 2 BUTTON HOVER
+============================== */
+
+#bet2-waitingBtn:hover,
+#bet2-cancelBtn:hover {
+    background-color: #F7001F;
+    border-color: #fa7e7e;
+    color: #fff;
+}
+
+#bet2-cashoutBtn:hover {
+    background-color: #F58708;
+    border-color: #FFBD71;
+    color: #fff;
+}
+
+
+/* ==============================
+   BET 2 BUTTON CLICK BORDER
+   ANIMATION
+============================== */
+
+#bet2-betBtn,
+#bet2-waitingBtn,
+#bet2-cancelBtn,
+#bet2-cashoutBtn {
+    position: relative;
+    overflow: visible;
+    transition: background-color 0.2s ease,
+                border-color 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+}
+
+/* BORDER LAYER */
+
+#bet2-betBtn::after,
+#bet2-waitingBtn::after,
+#bet2-cancelBtn::after,
+#bet2-cashoutBtn::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    box-sizing: border-box;
+    border: 4px solid transparent;
+    border-radius: 16px;
+    pointer-events: none;
+
+    transition: inset 0.27s ease,
+                opacity 0.27s ease;
+    opacity: 0;
+}
+
+/* BET */
+
+#bet2-betBtn:active {
+    transform: translateY(1.1px);
+    border-color: transparent;
+}
+
+#bet2-betBtn:active::after {
+    inset: -4px;
+    border-color: #2E643C;
+    opacity: 1;
+}
+
+/* WAITING */
+
+#bet2-waitingBtn:active {
+    transform: translateY(1.1px);
+    border-color: transparent;
+}
+
+#bet2-waitingBtn:active::after {
+    inset: -4px;
+    border-color: #7B343C;
+    opacity: 1;
+}
+
+/* CANCEL */
+
+#bet2-cancelBtn:active {
+    transform: translateY(1px);
+    border-color: transparent;
+}
+
+#bet2-cancelBtn:active::after {
+    inset: -4px;
+    border-color: #7B343C;
+    opacity: 1;
+}
+
+/* CASHOUT */
+
+#bet2-cashoutBtn:active {
+    transform: translateY(1px);
+    border-color: transparent;
+}
+
+#bet2-cashoutBtn:active::after {
+    inset: -4px;
+    border-color: #7C6314;
+    opacity: 1;
+}
+
+
+/* ==============================
+   BET 2 AMOUNT BUTTON PRESS
+============================== */
+
+#bet2-amount-buttons button,
+#bet2-left-icon,
+#bet2-right-icon {
+    transition: transform 0.12s ease;
+}
+
+#bet2-amount-buttons button:active,
+#bet2-left-icon:active,
+#bet2-right-icon:active {
+    transform: translateY(1px);
+}
+
+
+/* ==============================
+   BET 2 AMOUNT LAYOUT LOCK
+============================== */
+
+#bet2-amount-layout {
+    position: relative;
+}
+
+#bet2-amount-layout.locked::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    background: #1b1c1d47;
+    border-radius: inherit;
+    cursor: default;
+}
+
+
+/* ==============================
+   BET 2 BALANCE DELAY SHADOW
+============================== */
+
+#bottom-right-layout {
+    position: relative;
+}
+
+#bottom-right-layout.balance-delay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    background: #0909094f;
+    pointer-events: none;
+}
+
+
+/* ==============================
+   BET 2 AMOUNT BUTTON TEXT
+   SELECTION DISABLE
+============================== */
+
+#right-top-right-corner {
+    isolation: isolate;
+}
+
+#right-top-right-corner.locked {
+    pointer-events: none;
+}
+
+#right-top-right-corner.locked::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    background: #1b1c1d63;
+    border-radius: 50%;
+    pointer-events: none;
+}

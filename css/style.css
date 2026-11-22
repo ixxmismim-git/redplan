@@ -1,0 +1,690 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;700;800&display=swap');
+
+/* ==============================
+   GLOBAL
+============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #080b14;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+/* ==============================
+   GAME CONTAINER
+============================== */
+
+#game-container {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+
+/* ==============================
+   TOP HEADER
+============================== */
+
+#top-header {
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+    padding: 0px 8px;
+    background: #1b1c1d;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* LEFT LOGO */
+
+#header-left {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+#header-left img {
+    width: 86px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* RIGHT ELEMENTS */
+
+#header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0;
+
+    width: auto;
+    flex-shrink: 0;
+}
+
+.header-item {
+    display: flex;
+    align-items: center;
+    width: auto;
+}
+
+/* BALANCE */
+
+#header-balance {
+    color: #28a909;
+    display: flex;
+    align-items: center;
+    width: auto;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* CURRENCY */
+
+#header-currency {
+    color: #9b9c9e;
+    letter-spacing: -.21px;
+    display: flex;
+    align-items: center;
+    width: auto;
+    font-size: 13.8px;
+    margin-left: 4px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    -webkit-text-stroke: 0.20px;
+    font-style: normal;
+}
+
+/* IMAGES */
+
+#header-img-1,
+#header-img-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+#header-img-1 {
+    margin-left: 8px;
+}
+
+#header-img-2 {
+    margin-left: 8px;
+}
+
+#header-img-1 img,
+#header-img-2 img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==============================
+   MAIN LAYOUT
+============================== */
+
+#main-layout {
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+
+    background: #0e0e0e;
+}
+
+/* ==============================
+   PREVIOUS HISTORY
+============================== */
+
+#previous-history {
+    flex: 0 0 calc(28.4% - 8px);
+    height: calc(100% - 8px);
+    min-width: 0;
+    margin: 4px 0px 4px 4px;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    background: #1b1c1d;
+    border-radius: 20px;
+}
+
+/* ==============================
+   PLANE LAYOUT
+============================== */
+
+#plane-layout {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    width: auto;
+    height: auto;
+    margin-left: 4px;
+    margin-right: 4px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #0e0e0e;
+}
+
+
+/* ==============================
+   PLANE TOP
+============================== */
+
+#plane-top-layout {
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+
+    background: #0e0e0e;
+}
+
+/* ==============================
+   PLANE ANIMATION
+============================== */
+
+#plane-animation-layout {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+
+    background: #0e0e0e;
+    border: 1px solid #2a2b2e;
+    border-radius: 20px;
+}
+
+/* ==============================
+   ANIMATION CANVAS
+============================== */
+
+#rotateCanvas,
+#lightingCanvas,
+#crashCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#rotateCanvas {
+    z-index: 1;
+}
+
+#lightingCanvas {
+    z-index: 2;
+}
+
+#crashCanvas {
+    z-index: 3;
+}
+
+/* ==============================
+   MULTIPLIER
+============================== */
+
+#multiplier {
+    position: absolute;
+    z-index: 10;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 90px;
+    font-weight: 800;
+    white-space: nowrap;
+
+    transition: color 0.2s ease;
+}
+
+#multiplier.crashed {
+    color: rgb(209, 0, 0);
+}
+
+/* ==============================
+   FLEW AWAY
+============================== */
+
+#flewAway {
+    position: absolute;
+    z-index: 11;
+
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -68px);
+
+    display: none;
+
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 34px;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+
+/* ==============================
+   SMALL SCREENS
+============================== */
+
+@media (max-width: 600px) {
+
+    #top-header {
+        padding: 0 9px;
+    }
+
+    #multiplier {
+        font-size: clamp(30px, 7vw, 45px);
+    }
+}
+
+/* ==============================
+   HISTORY CONTAINER
+============================== */
+/* ==============================
+   HISTORY CONTAINER
+============================== */
+
+#history-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 4px 4px 4px 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+/* ==============================
+   HISTORY ITEMS CONTAINER
+============================== */
+
+#history-items {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+/* ==============================
+   HISTORY ITEM
+============================== */
+
+.history-item {
+    flex-shrink: 0;
+    transform-origin: center center;
+    transform: scale(1, 0.96);
+    will-change: transform;
+
+    display: flex;
+
+    margin-right: 5px;
+    margin-top: 1px;
+    padding: 2px 4px;
+
+    position: relative;
+    z-index: 1;
+
+    cursor: pointer;
+    text-align: center;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 12.4px;
+    font-weight: 500;
+    -webkit-text-stroke: 0.15px;
+    font-style: normal;
+
+    letter-spacing: .5px;
+    line-height: normal;
+
+    white-space: nowrap;
+    background: transparent;
+}
+
+
+/* ==============================
+   RIGHT SIDE BACKGROUND
+============================== */
+#history-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55px;
+    height: 100%;
+
+    background: linear-gradient(
+        to right,
+        #000e0e0e 0%,
+        #0e0e0e 33%,
+        #0e0e0e 100%
+    );
+
+    z-index: 5;
+    pointer-events: none;
+}
+
+#history-right-inner {
+    position: absolute;
+    top: 50%;
+    right: 9.2px;
+    width: 24px;
+    height: 14.8px;
+    background: #2C2D30;
+    border-radius: 10px;
+    transform: translateY(-50%);
+
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+#history-right-inner img {
+    width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+    object-fit: contain;
+}
+
+
+
+
+
+
+
+/* ==============================
+   LOW: BELOW 2X
+============================== */
+
+/* LOW: BELOW 2X */
+
+.history-low {
+    color: rgb(52, 180, 255);
+    background: transparent;
+}
+
+
+/* MEDIUM: 2X - 9.99X */
+
+.history-medium {
+    color: rgb(145, 62, 248);
+    background: transparent;
+}
+
+
+/* HIGH: 10X AND ABOVE */
+
+.history-high {
+    color: rgb(192, 23, 180);
+    background: transparent;
+}
+
+
+#history-overlay-layout {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: auto;
+
+    margin-top: 4px;
+    padding: 4px;
+
+    box-sizing: border-box;
+
+    background: #1b1c1d;
+    border-radius: 15px;
+    border: 1px solid #2727272a;
+
+    z-index: 9999;
+
+    display: none;
+}
+
+#history-overlay-layout.active {
+    display: block;
+}
+
+#history-overlay-header {
+    width: 100%;
+    height: auto;
+    padding: 3px 6px 4px  8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#history-overlay-title {
+    color: #a3a3a3;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -.18px;
+}
+#history-overlay-right {
+    width: 24px;
+    height: 14.8px;
+    margin-top: 1px;
+    background: #2C2D30;
+    border-radius: 10px;
+    pointer-events: auto;
+    cursor: pointer;
+}
+#history-overlay-right img {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    object-fit: contain;
+}
+/* ===============================
+   OVERLAY HISTORY ITEMS
+=============================== */
+#history-layout{
+    padding: 4px 8px 0px 4px;
+
+}
+#history-overlay-items {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0px 0px;
+    align-content: flex-start;
+    justify-content: flex-start;
+    box-sizing: border-box;
+
+
+ 
+
+}
+
+/* Individual History */
+#history-overlay-items .history-item {
+    flex: 0 0 auto;
+    margin: 4px 1px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12.3px;
+    font-weight: 500;
+    -webkit-text-stroke: 0.15px;
+    font-style: normal;
+}
+
+#plane-parent-layout {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-bottom: 4px;
+    box-sizing: border-box;
+}
+
+
+
+
+#horizontal-scroll {
+    width: 100%;
+    height: 15px;
+    min-height: 15px;
+    display: none;
+    flex-direction: row;
+    box-sizing: border-box;
+    background: #FCFCFC;
+    padding: 3px 4px 3px 4px;
+}
+
+
+#horizontal-scroll-left {
+    width: 0;
+    height: 9px;
+    box-sizing: border-box;
+    border-top: 4.5px solid transparent;
+    border-bottom: 4.5px solid transparent;
+    border-right: 8px solid #8B8B8B;
+    flex-shrink: 0;
+    margin-right: 8px;
+}
+
+#horizontal-scroll-center {
+    transition: background-color 0.2s ease;
+    flex: 1;
+    min-width: 0;
+    height: 9px;
+    background-color: #8B8B8B;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin-right: 12px;
+}
+
+#horizontal-scroll-center:hover{
+    background-color:#636363;
+}
+
+
+#horizontal-scroll-right {
+    width: 0;
+    height: 9px;
+    box-sizing: border-box;
+    border-top: 4.5px solid transparent;
+    border-bottom: 4.5px solid transparent;
+    border-left: 8px solid #8B8B8B;
+    flex-shrink: 0;
+    margin-left: 8px;
+}
+#horizontal-scroll.active {
+    display: flex;
+}
+
+
+
+#plane-bottom-layout {
+    position: relative;
+}
+
+#plane-bottom-layout.progress-delay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    background: #0909094f;
+    pointer-events: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            
+/* BET 1 + BET 2 TEXT SELECTION DISABLE */
+
+#bottom-left-layout *,
+#bottom-right-layout * 
+#previous-history *,
+#plane-parent-layout *,
+#history-overlay * {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+#top-header,
+#top-header * {
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-drag: none;
+}
+
+
+
+
+
+
+
+
