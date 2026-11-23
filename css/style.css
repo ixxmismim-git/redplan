@@ -688,15 +688,21 @@ body {
 
 
 
-
-/* ==============================
-   MOBILE LAYOUT
-============================== */
-
 @media (max-width: 600px) {
 
     #main-layout {
+        display: flex;
         flex-direction: column;
+        height: 100%;
+        min-height: 0;
+    }
+
+    #plane-layout {
+        order: 1;
+        flex: 1 1 auto;
+        width: 100%;
+        min-height: 0;
+        margin: 0;
     }
 
     #previous-history {
@@ -704,16 +710,10 @@ body {
         flex: 0 0 40px;
         width: 100%;
         height: 40px;
+        min-height: 40px;
         margin: 0;
         border-radius: 0;
-    }
-
-    #plane-layout {
-        order: 1;
-        flex: 1;
-        width: 100%;
-        margin: 0;
-        min-height: 0;
+        display: flex;
     }
 
     #plane-parent-layout {
@@ -728,4 +728,53 @@ body {
         min-height: 263px;
         border-radius: 12px;
     }
+
+}
+
+/* MOBILE: BET 1 ABOVE BET 2 */
+
+@media screen and (max-width: 600px) {
+
+    #plane-bottom-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        align-items: stretch !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    #bottom-left-layout {
+        order: 1 !important;
+        position: relative !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        flex: 0 0 auto !important;
+    }
+
+    #bottom-right-layout {
+        order: 2 !important;
+        position: relative !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        flex: 0 0 auto !important;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    #main-layout {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: auto;
+        min-height: 100%;
+    }
+
+    #plane-layout {
+        flex: 0 0 auto;
+        overflow: visible;
+    }
+
 }

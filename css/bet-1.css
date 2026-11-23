@@ -960,20 +960,7 @@
    AMOUNT LAYOUT LOCK
 ============================== */
 
-#amount-layout {
-    position: relative;
-}
-/* LOCK OVERLAY + SHADOW */
 
-#amount-layout.locked::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 100;
-    background: #1b1c1d47;
-    border-radius: inherit;
-    cursor: default;
-}
 
 #bottom-left-layout {
     position: relative;
@@ -986,4 +973,96 @@
     z-index: 100;
     background: #0909094f;
     pointer-events: none;
+}
+
+
+
+
+
+
+
+#amount-layout {
+    position: relative;
+}
+/* LOCK OVERLAY + SHADOW */
+
+#amount-layout.locked::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    background: #1b1c1d5a;
+    border-radius: inherit;
+    cursor: default;
+}
+
+
+
+
+
+#bet1-cashout-right {
+    position: relative;
+}
+
+#bet1-cashout-right.locked::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #1d1d1b5a;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 5;
+}
+
+#left-top-autobet {
+    position: relative;
+}
+
+#left-top-autobet.locked::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #1b1c1d5a;
+    border-radius: inherit;
+    pointer-events: auto;
+    z-index: 999;
+}
+
+/* =================================
+   AUTO CASHOUT SWITCH LOCK
+================================= */
+
+#bet1-cashout-switch {
+    position: relative;
+}
+
+#bet1-cashout-switch.bet-locked::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    background: #1b1c1d6d;
+    border-radius: inherit;
+}
+
+/* =================================
+   AUTO CASHOUT RIGHT LOCK
+================================= */
+
+#bet1-cashout-right.locked {
+    pointer-events: none;
+}
+#bet1-cashout-switch.bet-locked {
+    pointer-events: none !important;
+}
+
+/* BET CLICK করলে Auto Cashout Right-এর Shadow */
+#bet1-cashout-right.bet-locked::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #1d1d1b5a;
+    border-radius: inherit;
+    pointer-events: auto;
+    z-index: 100;
 }

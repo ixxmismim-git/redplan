@@ -65,10 +65,7 @@
       this.classList.toggle("off");
   });
 
-  cashoutSwitch.addEventListener("click", function () {
-      this.classList.toggle("on");
-      this.classList.toggle("off");
-  });
+
 
 })();
 
@@ -88,6 +85,8 @@
     let cashoutInProgress = false;
     let cashoutTimer = null;
     let currentMultiplier = 1;
+    let autoCashoutTarget = null;
+    let autoCashoutCancelled = false;
 
   const cashoutAmountText = document.querySelector(
       "#cashoutBtn .cashout-amount span"
@@ -99,17 +98,42 @@
   // AMOUNT FORMAT
   // ==============================
 
-  function lockAmountLayout() {
-      document
-          .getElementById("amount-layout")
-          .classList.add("locked");
-  }
 
-  function unlockAmountLayout() {
-      document
-          .getElementById("amount-layout")
-          .classList.remove("locked");
-  }
+function lockAmountLayout() {
+
+    document.getElementById("amount-layout")
+        .classList.add("locked");
+
+    const cashoutSwitch = document.getElementById("bet1-cashout-switch");
+    const cashoutRight = document.getElementById("bet1-cashout-right");
+    const cashoutInput = document.getElementById("bet1-cashout-input");
+
+    cashoutSwitch.classList.add("bet-locked");
+
+    if (cashoutSwitch.classList.contains("on")) {
+        cashoutRight.classList.add("bet-locked");
+    }
+
+    cashoutInput.disabled = true;
+}
+
+function unlockAmountLayout() {
+
+    document.getElementById("amount-layout")
+        .classList.remove("locked");
+
+    const cashoutSwitch = document.getElementById("bet1-cashout-switch");
+    const cashoutRight = document.getElementById("bet1-cashout-right");
+    const cashoutInput = document.getElementById("bet1-cashout-input");
+
+    cashoutSwitch.classList.remove("bet-locked");
+    cashoutRight.classList.remove("bet-locked");
+
+    cashoutInput.disabled =
+        !cashoutSwitch.classList.contains("on");
+}
+
+
 
   function formatAmount(amount) {
       return amount.toLocaleString("en-US", {
@@ -265,6 +289,85 @@
       cancelButton.style.display = "none";
       cashoutButton.style.display = "block";
   }
+  function startCashout(isAuto = false) {
+
+    if (
+        cancelInProgress ||
+        cancelRefundTimer !== null ||
+        cashoutInProgress
+    ) {
+        return;
+    }
+
+    const activeBet = window.balanceManager.getActiveBet(1);
+
+    if (activeBet === null) {
+        return;
+    }
+
+    // Manual Cashout হলে Auto Cashout বাতিল
+    if (!isAuto) {
+        autoCashoutCancelled = true;
+        autoCashoutTarget = null;
+    }
+
+    // Auto Cashout একবার শুরু হলে আর দ্বিতীয়বার হবে না
+    if (isAuto) {
+        autoCashoutTarget = null;
+    }
+
+    const payout = Number(
+        cashoutAmountText.textContent.replace(/,/g, "")
+    );
+
+    const cashoutMultiplier = currentMultiplier;
+
+    cashoutInProgress = true;
+
+    const bottomLeftLayout =
+        document.getElementById("bottom-left-layout");
+
+    if (bottomLeftLayout) {
+        bottomLeftLayout.classList.add("balance-delay");
+    }
+
+    const delay = 100 + Math.floor(400);
+
+    cashoutTimer = setTimeout(() => {
+
+        cashoutTimer = null;
+
+        const result = window.balanceManager.cashoutBet(1, payout);
+
+        if (bottomLeftLayout) {
+            bottomLeftLayout.classList.remove("balance-delay");
+        }
+
+        cashoutInProgress = false;
+
+        if (!result.success) {
+            console.log("CASHOUT FAILED:", result.reason);
+            return;
+        }
+
+        console.log(
+            isAuto ? "AUTO CASHOUT SUCCESS:" : "MANUAL CASHOUT SUCCESS:",
+            result.payout
+        );
+
+        showBetButton();
+
+        unlockAmountLayout();
+
+        if (typeof window.showCashoutPopup === "function") {
+            window.showCashoutPopup(
+                cashoutMultiplier.toFixed(2),
+                payout.toFixed(2)
+            );
+        }
+
+    }, delay);
+}
 
   // ==============================
   // RESTORE BET BUTTON
@@ -443,73 +546,104 @@
   // BET BUTTON CLICK
   // ==============================
 
-  betButton.addEventListener("click", function () {
-      if (cancelInProgress || cancelRefundTimer !== null) {
-          return;
-      }
 
-      if (pendingBet) {
-          return;
-      }
+betButton.addEventListener("click", function () {
 
-      if (window.balanceManager.getActiveBet(1) !== null) {
-          return;
-      }
+    if (cancelInProgress || cancelRefundTimer !== null) {
+        return;
+    }
 
-      const amount = getAmount();
-      setAmount(amount);
+    if (pendingBet) {
+        return;
+    }
 
-      // FIRST: BALANCE CHECK
-        // FIRST: BALANCE CHECK
-        const check = window.balanceManager.canPlaceBet(1, amount);
+    if (window.balanceManager.getActiveBet(1) !== null) {
+        return;
+    }
 
-        if (!check.success) {
+    const amount = getAmount();
+    setAmount(amount);
 
-            if (check.reason === "insufficient_balance") {
+    // FIRST: BALANCE CHECK
+    const check = window.balanceManager.canPlaceBet(1, amount);
 
-                if (typeof window.showNoBalancePopup === "function") {
-                    window.showNoBalancePopup();
-                } else {
-                    console.error("showNoBalancePopup function not loaded!");
-                }
+    if (!check.success) {
 
+        if (check.reason === "insufficient_balance") {
+
+            if (typeof window.showNoBalancePopup === "function") {
+                window.showNoBalancePopup();
+            } else {
+                console.error("showNoBalancePopup function not loaded!");
             }
 
-            return;
         }
 
-      // AMOUNT LAYOUT LOCK
-      lockAmountLayout();
+        return;
+    }
 
-      // CHECK ROUND STATE
-      const roundState = window.roundManager.getState();
+    // ==============================
+    // AUTO CASHOUT TARGET SETUP
+    // ==============================
 
-      console.log("BET 1 CLICKED. ROUND STATE:", roundState);
+    const cashoutSwitch =
+        document.getElementById("bet1-cashout-switch");
 
-      // CASE 1: PROGRESS VISIBLE
-      if (isProgressVisible()) {
-          pendingBet = true;
-          pendingAmount = amount;
-          pendingRequestId++;
+    const cashoutInput =
+        document.getElementById("bet1-cashout-input");
 
-          processPendingBet();
-          return;
-      }
+    // আগের Bet-এর Auto Cashout Target Reset
+    autoCashoutTarget = null;
+    autoCashoutCancelled = false;
 
-      // CASE 2: FLYING OR CRASHED
-      pendingBet = true;
-      pendingAmount = amount;
-      pendingRequestId++;
+    // Switch ON থাকলেই Auto Cashout চালু হবে
+    if (cashoutSwitch.classList.contains("on")) {
 
-      showWaitingButton();
+        window.validateAutoCashoutValue1();
 
-      console.log(
-          "BET 1 PENDING:",
-          pendingAmount,
-          "ROUND STATE:",
-          roundState
-      );
-  });
+        autoCashoutTarget = parseFloat(cashoutInput.value);
+
+        console.log(
+            "BET 1 AUTO CASHOUT TARGET:",
+            autoCashoutTarget
+        );
+    }
+
+    // AMOUNT LAYOUT LOCK
+    lockAmountLayout();
+
+    // CHECK ROUND STATE
+    const roundState = window.roundManager.getState();
+
+    console.log("BET 1 CLICKED. ROUND STATE:", roundState);
+
+    // CASE 1: PROGRESS VISIBLE
+    if (isProgressVisible()) {
+
+        pendingBet = true;
+        pendingAmount = amount;
+        pendingRequestId++;
+
+        processPendingBet();
+        return;
+    }
+
+    // CASE 2: FLYING OR CRASHED
+    pendingBet = true;
+    pendingAmount = amount;
+    pendingRequestId++;
+
+    showWaitingButton();
+
+    console.log(
+        "BET 1 PENDING:",
+        pendingAmount,
+        "ROUND STATE:",
+        roundState
+    );
+
+});
+
 
   // ==============================
   // ROUND WAITING START EVENT
@@ -550,80 +684,7 @@
 
 
 cashoutButton.addEventListener("click", function () {
-
-    if (
-        cancelInProgress ||
-        cancelRefundTimer !== null ||
-        cashoutInProgress
-    ) {
-        return;
-    }
-
-    const activeBet = window.balanceManager.getActiveBet(1);
-
-    if (activeBet === null) {
-        return;
-    }
-
-    // Click করার মুহূর্তের Amount এবং Multiplier ধরে রাখবে
-    const payout = Number(
-        cashoutAmountText.textContent.replace(/,/g, "")
-    );
-
-    const cashoutMultiplier = currentMultiplier;
-
-    cashoutInProgress = true;
-
-    const bottomLeftLayout =
-        document.getElementById("bottom-left-layout");
-
-    // Shadow দেখাবে
-    if (bottomLeftLayout) {
-        bottomLeftLayout.classList.add("balance-delay");
-    }
-
-    // আগের Delay ঠিক রাখা হয়েছে
-    const delay = 100 + Math.floor(400);
-
-    cashoutTimer = setTimeout(() => {
-
-        cashoutTimer = null;
-
-        // Cashout সম্পন্ন
-        const result = window.balanceManager.cashoutBet(1, payout);
-
-        // Shadow সরাবে
-        if (bottomLeftLayout) {
-            bottomLeftLayout.classList.remove("balance-delay");
-        }
-
-        cashoutInProgress = false;
-
-        if (!result.success) {
-            console.log("CASHOUT FAILED:", result.reason);
-            return;
-        }
-
-        console.log("BET 1 CASHOUT SUCCESS:", result.payout);
-
-        // Cashout Button সরিয়ে Bet Button দেখাবে
-        showBetButton();
-
-        // Amount Unlock
-        unlockAmountLayout();
-
-        // শুধু সফল Cashout হলে Popup দেখাবে
-        if (typeof window.showCashoutPopup === "function") {
-            window.showCashoutPopup(
-                cashoutMultiplier.toFixed(2),
-                payout.toFixed(2)
-            );
-        } else {
-            console.error("showCashoutPopup function not loaded!");
-        }
-
-    }, delay);
-
+    startCashout(false);
 });
 
 
@@ -633,7 +694,6 @@ cashoutButton.addEventListener("click", function () {
 
 window.addEventListener("roundMultiplierUpdate", function (event) {
 
-    // Cashout চলাকালে Amount আর Update হবে না
     if (cashoutInProgress) {
         return;
     }
@@ -645,7 +705,9 @@ window.addEventListener("roundMultiplierUpdate", function (event) {
     }
 
     const multiplier = event.detail.multiplier;
+
     const cashoutAmount = activeBet.amount * multiplier;
+
     currentMultiplier = Number(multiplier);
 
     if (cashoutAmountText) {
@@ -653,6 +715,17 @@ window.addEventListener("roundMultiplierUpdate", function (event) {
             cashoutAmount
         );
     }
+
+    // AUTO CASHOUT CHECK
+
+if (
+    autoCashoutTarget !== null &&
+    !autoCashoutCancelled &&
+    !cashoutInProgress &&
+    Number(multiplier.toFixed(2)) >= autoCashoutTarget
+) {
+    startCashout(true);
+}
 
 });
 
@@ -728,6 +801,66 @@ window.addEventListener("roundCrashed", function () {
             rightLayout.style.display = "flex";
         }
 
+    });
+
+})();
+(() => {
+
+    const switchBtn = document.getElementById("bet1-cashout-switch");
+    const input = document.getElementById("bet1-cashout-input");
+    const cashoutRight = document.getElementById("bet1-cashout-right");
+    const icon = document.getElementById("bet1-cashout-icon");
+    const autoBetLayout = document.getElementById("left-top-autobet");
+
+    // Auto Cashout Value Validation
+  window.validateAutoCashoutValue1 = function () {
+
+    let value = parseFloat(input.value.trim());
+
+    if (isNaN(value)) {
+        value = 1.01;
+    }
+
+    if (value <= 1.00) {
+        value = 1.01;
+    } else if (value > 100.00) {
+        value = 100.00;
+    }
+
+    input.value = value.toFixed(2);
+};
+
+    function setAutoCashout(enabled) {
+
+        // Switch OFF হলে Value Format
+        if (!enabled) {
+            validateAutoCashoutValue1();
+        }
+
+        switchBtn.classList.toggle("on", enabled);
+        switchBtn.classList.toggle("off", !enabled);
+        input.disabled = !enabled;
+        cashoutRight.classList.toggle("locked", !enabled);
+        icon.style.pointerEvents = enabled ? "auto" : "none";
+
+        autoBetLayout.classList.toggle("locked", enabled);
+    }
+
+    // Default OFF
+    setAutoCashout(false);
+
+    // Switch click
+    switchBtn.addEventListener("click", () => {
+
+        const enabled = !switchBtn.classList.contains("on");
+
+        setAutoCashout(enabled);
+
+    });
+
+    // Icon click
+    icon.addEventListener("click", () => {
+        validateAutoCashoutValue1();
     });
 
 })();
