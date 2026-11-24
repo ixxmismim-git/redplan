@@ -1,9 +1,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;700;800&display=swap');
 
-/* ==============================
-   GLOBAL
-============================== */
+
+/* ==================================================
+   1. GLOBAL
+================================================== */
 
 * {
     margin: 0;
@@ -21,9 +22,10 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* ==============================
-   GAME CONTAINER
-============================== */
+
+/* ==================================================
+   2. GAME CONTAINER
+================================================== */
 
 #game-container {
     width: 100%;
@@ -35,19 +37,31 @@ body {
 }
 
 
-/* ==============================
-   TOP HEADER
-============================== */
+/* ==================================================
+   3. TOP HEADER
+================================================== */
 
 #top-header {
     width: 100%;
     height: 40px;
     min-height: 40px;
-    padding: 0px 8px;
+    padding: 0 8px;
     background: #1b1c1d;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-drag: none;
+}
+
+#top-header * {
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-drag: none;
 }
 
 /* LEFT LOGO */
@@ -72,7 +86,6 @@ body {
     align-items: center;
     justify-content: flex-end;
     gap: 0;
-
     width: auto;
     flex-shrink: 0;
 }
@@ -112,7 +125,7 @@ body {
     font-style: normal;
 }
 
-/* IMAGES */
+/* HEADER IMAGES */
 
 #header-img-1,
 #header-img-2 {
@@ -122,13 +135,6 @@ body {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
-}
-
-#header-img-1 {
-    margin-left: 8px;
-}
-
-#header-img-2 {
     margin-left: 8px;
 }
 
@@ -140,20 +146,9 @@ body {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-/* ==============================
-   MAIN LAYOUT
-============================== */
+/* ==================================================
+   4. MAIN LAYOUT
+================================================== */
 
 #main-layout {
     width: 100%;
@@ -162,31 +157,30 @@ body {
     display: flex;
     flex-direction: row;
     overflow: hidden;
-
     background: #0e0e0e;
 }
 
-/* ==============================
-   PREVIOUS HISTORY
-============================== */
+
+/* ==================================================
+   5. PREVIOUS HISTORY
+================================================== */
 
 #previous-history {
     flex: 0 0 calc(28.4% - 8px);
     height: calc(100% - 8px);
     min-width: 0;
-    margin: 4px 0px 4px 4px;
-
+    margin: 4px 0 4px 4px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-
     background: #1b1c1d;
     border-radius: 20px;
 }
 
-/* ==============================
-   PLANE LAYOUT
-============================== */
+
+/* ==================================================
+   6. PLANE LAYOUT
+================================================== */
 
 #plane-layout {
     position: relative;
@@ -203,22 +197,28 @@ body {
     background: #0e0e0e;
 }
 
-
-/* ==============================
-   PLANE TOP
-============================== */
+#plane-parent-layout {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-bottom: 4px;
+    box-sizing: border-box;
+}
 
 #plane-top-layout {
     width: 100%;
     height: 40px;
     min-height: 40px;
-
     background: #0e0e0e;
 }
 
-/* ==============================
-   PLANE ANIMATION
-============================== */
+
+/* ==================================================
+   7. PLANE ANIMATION
+================================================== */
 
 #plane-animation-layout {
     position: relative;
@@ -226,15 +226,15 @@ body {
     flex: 1;
     min-height: 0;
     overflow: hidden;
-
     background: #0e0e0e;
     border: 1px solid #2a2b2e;
     border-radius: 20px;
 }
 
-/* ==============================
-   ANIMATION CANVAS
-============================== */
+
+/* ==================================================
+   8. ANIMATION CANVAS
+================================================== */
 
 #rotateCanvas,
 #lightingCanvas,
@@ -259,26 +259,23 @@ body {
     z-index: 3;
 }
 
-/* ==============================
-   MULTIPLIER
-============================== */
+
+/* ==================================================
+   9. MULTIPLIER
+================================================== */
 
 #multiplier {
     position: absolute;
     z-index: 10;
-
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
     display: flex;
-
     color: #ffffff;
     font-family: 'Inter', sans-serif;
     font-size: 90px;
     font-weight: 800;
     white-space: nowrap;
-
     transition: color 0.2s ease;
 }
 
@@ -286,20 +283,18 @@ body {
     color: rgb(209, 0, 0);
 }
 
-/* ==============================
-   FLEW AWAY
-============================== */
+
+/* ==================================================
+   10. FLEW AWAY
+================================================== */
 
 #flewAway {
     position: absolute;
     z-index: 11;
-
     left: 50%;
     bottom: 50%;
     transform: translate(-50%, -68px);
-
     display: none;
-
     color: #ffffff;
     font-family: 'Inter', sans-serif;
     font-size: 34px;
@@ -308,46 +303,21 @@ body {
 }
 
 
-/* ==============================
-   SMALL SCREENS
-============================== */
-
-@media (max-width: 600px) {
-
-    #top-header {
-        padding: 0 9px;
-    }
-
-    #multiplier {
-        font-size: clamp(30px, 7vw, 45px);
-    }
-}
-
-/* ==============================
-   HISTORY CONTAINER
-============================== */
-/* ==============================
-   HISTORY CONTAINER
-============================== */
+/* ==================================================
+   11. HISTORY CONTAINER
+================================================== */
 
 #history-container {
     position: relative;
     width: 100%;
     height: 100%;
     padding: 4px 4px 4px 6px;
-
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
     overflow: hidden;
     white-space: nowrap;
 }
-
-
-/* ==============================
-   HISTORY ITEMS CONTAINER
-============================== */
 
 #history-items {
     width: 100%;
@@ -356,65 +326,76 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-
     overflow: hidden;
     white-space: nowrap;
 }
 
 
-/* ==============================
-   HISTORY ITEM
-============================== */
+/* ==================================================
+   12. HISTORY ITEM
+================================================== */
 
 .history-item {
     flex-shrink: 0;
     transform-origin: center center;
     transform: scale(1, 0.96);
     will-change: transform;
-
     display: flex;
-
     margin-right: 5px;
     margin-top: 1px;
     padding: 2px 4px;
-
     position: relative;
     z-index: 1;
-
     cursor: pointer;
     text-align: center;
-
     font-family: 'Inter', sans-serif;
     font-size: 12.4px;
     font-weight: 500;
     -webkit-text-stroke: 0.15px;
     font-style: normal;
-
     letter-spacing: .5px;
     line-height: normal;
-
     white-space: nowrap;
     background: transparent;
 }
 
 
-/* ==============================
-   RIGHT SIDE BACKGROUND
-============================== */
+/* ==================================================
+   13. HISTORY COLORS
+================================================== */
+
+.history-low {
+    color: rgb(52, 180, 255);
+    background: transparent;
+}
+
+.history-medium {
+    color: rgb(145, 62, 248);
+    background: transparent;
+}
+
+.history-high {
+    color: rgb(192, 23, 180);
+    background: transparent;
+}
+
+
+/* ==================================================
+   14. HISTORY RIGHT SIDE
+================================================== */
+
 #history-right {
     position: absolute;
     top: 0;
     right: 0;
     width: 55px;
     height: 100%;
-
     background: linear-gradient(
         to right,
         #000e0e0e 0%,
         #0e0e0e 33%,
         #0e0e0e 100%
     );
-
     z-index: 5;
     pointer-events: none;
 }
@@ -428,7 +409,6 @@ body {
     background: #2C2D30;
     border-radius: 10px;
     transform: translateY(-50%);
-
     pointer-events: auto;
     cursor: pointer;
 }
@@ -436,65 +416,28 @@ body {
 #history-right-inner img {
     width: 100%;
     height: 100%;
-
     box-sizing: border-box;
     object-fit: contain;
 }
 
 
-
-
-
-
-
-/* ==============================
-   LOW: BELOW 2X
-============================== */
-
-/* LOW: BELOW 2X */
-
-.history-low {
-    color: rgb(52, 180, 255);
-    background: transparent;
-}
-
-
-/* MEDIUM: 2X - 9.99X */
-
-.history-medium {
-    color: rgb(145, 62, 248);
-    background: transparent;
-}
-
-
-/* HIGH: 10X AND ABOVE */
-
-.history-high {
-    color: rgb(192, 23, 180);
-    background: transparent;
-}
-
+/* ==================================================
+   15. HISTORY OVERLAY
+================================================== */
 
 #history-overlay-layout {
     position: absolute;
-
     top: 0;
     left: 0;
-
     width: 100%;
     height: auto;
-
     margin-top: 4px;
     padding: 4px;
-
     box-sizing: border-box;
-
     background: #1b1c1d;
     border-radius: 15px;
     border: 1px solid #2727272a;
-
     z-index: 9999;
-
     display: none;
 }
 
@@ -505,7 +448,7 @@ body {
 #history-overlay-header {
     width: 100%;
     height: auto;
-    padding: 3px 6px 4px  8px;
+    padding: 3px 6px 4px 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -518,6 +461,7 @@ body {
     font-weight: 500;
     letter-spacing: -.18px;
 }
+
 #history-overlay-right {
     width: 24px;
     height: 14.8px;
@@ -527,35 +471,34 @@ body {
     pointer-events: auto;
     cursor: pointer;
 }
+
 #history-overlay-right img {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
     object-fit: contain;
 }
-/* ===============================
-   OVERLAY HISTORY ITEMS
-=============================== */
-#history-layout{
-    padding: 4px 8px 0px 4px;
 
+
+/* ==================================================
+   16. OVERLAY HISTORY ITEMS
+================================================== */
+
+#history-layout {
+    padding: 4px 8px 0 4px;
 }
+
 #history-overlay-items {
     width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 0px 0px;
+    padding: 0;
     align-content: flex-start;
     justify-content: flex-start;
     box-sizing: border-box;
-
-
- 
-
 }
 
-/* Individual History */
 #history-overlay-items .history-item {
     flex: 0 0 auto;
     margin: 4px 1px;
@@ -566,19 +509,10 @@ body {
     font-style: normal;
 }
 
-#plane-parent-layout {
-    flex: 1;
-    min-width: 0;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    margin-bottom: 4px;
-    box-sizing: border-box;
-}
 
-
-
+/* ==================================================
+   17. HORIZONTAL SCROLL
+================================================== */
 
 #horizontal-scroll {
     width: 100%;
@@ -588,9 +522,12 @@ body {
     flex-direction: row;
     box-sizing: border-box;
     background: #FCFCFC;
-    padding: 3px 4px 3px 4px;
+    padding: 3px 4px;
 }
 
+#horizontal-scroll.active {
+    display: flex;
+}
 
 #horizontal-scroll-left {
     width: 0;
@@ -614,10 +551,9 @@ body {
     margin-right: 12px;
 }
 
-#horizontal-scroll-center:hover{
-    background-color:#636363;
+#horizontal-scroll-center:hover {
+    background-color: #636363;
 }
-
 
 #horizontal-scroll-right {
     width: 0;
@@ -629,11 +565,11 @@ body {
     flex-shrink: 0;
     margin-left: 8px;
 }
-#horizontal-scroll.active {
-    display: flex;
-}
 
 
+/* ==================================================
+   18. PLANE BOTTOM LAYOUT
+================================================== */
 
 #plane-bottom-layout {
     position: relative;
@@ -647,12 +583,14 @@ body {
     background: #0909094f;
     pointer-events: none;
 }
- 
-            
-/* BET 1 + BET 2 TEXT SELECTION DISABLE */
+
+
+/* ==================================================
+   19. TEXT SELECTION DISABLE
+================================================== */
 
 #bottom-left-layout *,
-#bottom-right-layout * 
+#bottom-right-layout *,
 #previous-history *,
 #plane-parent-layout *,
 #history-overlay * {
@@ -660,51 +598,43 @@ body {
     user-select: none;
     -webkit-tap-highlight-color: transparent;
 }
-#top-header,
-#top-header * {
-    -webkit-user-select: none !important;
-    user-select: none !important;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-user-drag: none;
-}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* ==================================================
+   20. MOBILE RESPONSIVE
+================================================== */
 
 @media (max-width: 600px) {
+
+    /* HEADER */
+
+    #top-header {
+        padding: 0 9px;
+    }
+
+    /* MAIN LAYOUT */
 
     #main-layout {
         display: flex;
         flex-direction: column;
-        height: 100%;
-        min-height: 0;
+        height: auto;
+        min-height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
+
+    /* PLANE LAYOUT */
 
     #plane-layout {
         order: 1;
-        flex: 1 1 auto;
+        flex: 0 0 auto;
         width: 100%;
         min-height: 0;
         margin: 0;
+        overflow: visible;
     }
+
+    /* PREVIOUS HISTORY */
 
     #previous-history {
         order: 2;
@@ -717,11 +647,15 @@ body {
         display: flex;
     }
 
+    /* PLANE PARENT */
+
     #plane-parent-layout {
         flex: 1;
         min-height: 0;
         margin-bottom: 0;
     }
+
+    /* ANIMATION */
 
     #plane-animation-layout {
         flex: 0 0 263px;
@@ -730,11 +664,13 @@ body {
         border-radius: 12px;
     }
 
-}
+    /* MULTIPLIER */
 
-/* MOBILE: BET 1 ABOVE BET 2 */
+    #multiplier {
+        font-size: clamp(30px, 7vw, 45px);
+    }
 
-@media screen and (max-width: 600px) {
+    /* BET 1 ABOVE BET 2 */
 
     #plane-bottom-layout {
         display: flex !important;
@@ -759,23 +695,6 @@ body {
         width: 100% !important;
         min-width: 0 !important;
         flex: 0 0 auto !important;
-    }
-
-}
-
-
-@media (max-width: 600px) {
-
-    #main-layout {
-        overflow-y: auto;
-        overflow-x: hidden;
-        height: auto;
-        min-height: 100%;
-    }
-
-    #plane-layout {
-        flex: 0 0 auto;
-        overflow: visible;
     }
 
 }
