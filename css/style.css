@@ -636,7 +636,7 @@ body {
         height: auto;
         min-height: 0;
         overflow: visible;
-        padding-bottom: 4px !important;
+        padding-bottom: 8px;
     }
 
 
