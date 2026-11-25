@@ -1,81 +1,4 @@
 
-
-/* ==================================================
-   BET 2 TABS / BACKSPACE / SWITCHES
-================================================== */
-(() => {
-    const bottomLeftLayout = document.getElementById("bottom-left-layout");
-    const betBtn = document.getElementById("left-bet-btn");
-    const autoBetBtn = document.getElementById("left-autobet-btn");
-    
-    // ==============================
-    // BET / AUTOBET TABS
-    // ==============================
-    betBtn.addEventListener("click", function () {
-        bottomLeftLayout.classList.remove("auto-mode");
-        betBtn.classList.add("active");
-        autoBetBtn.classList.remove("active");
-    });
-
-    autoBetBtn.addEventListener("click", function () {
-        bottomLeftLayout.classList.add("auto-mode");
-        autoBetBtn.classList.add("active");
-        betBtn.classList.remove("active");
-    });
-
-  // ===============================
-  // BACKSPACE SETUP
-  // ===============================
-  function setupBackspace(inputId) {
-      const input = document.getElementById(inputId);
-      input.addEventListener("keydown", function (e) {
-          if (e.key === "Backspace") {
-              const start = this.selectionStart;
-              const end = this.selectionEnd;
-              const value = this.value;
-
-              if (start !== end) {
-                  e.preventDefault();
-                  this.value =
-                      value.substring(0, start) +
-                      value.substring(end);
-                  this.setSelectionRange(start, start);
-                  return;
-              }
-
-              e.preventDefault();
-
-              if (start > 0) {
-                  this.value =
-                      value.substring(0, start - 1) +
-                      value.substring(start);
-                  this.setSelectionRange(start - 1, start - 1);
-              } else if (value.length > 0) {
-                  this.value = value.substring(1);
-                  this.setSelectionRange(0, 0);
-              }
-          }
-      });
-  }
-
-  setupBackspace("bet1-amount-input");
-  setupBackspace("bet1-cashout-input");
-
-  // ===============================
-  // SWITCHES
-  // ===============================
-  const autoBetSwitch = document.getElementById("bet1-auto-bet-switch");
-  const cashoutSwitch = document.getElementById("bet1-cashout-switch");
-
-  autoBetSwitch.addEventListener("click", function () {
-      this.classList.toggle("on");
-      this.classList.toggle("off");
-  });
-
-})();
-
-
-
 // ==================================================
 // BET 1 AMOUNT AND BET MANAGEMENT
 // ==================================================
@@ -107,7 +30,10 @@
     let pendingAmount = 0;
     let pendingRequestId = 0;
     let pendingTimer = null;
-
+    let autoBetStopRequested = false;
+    let autoBetSwitchLock = false;
+    let cashoutButtonVisible = false;
+    const autoBetSwitch = document.getElementById("bet1-auto-bet-switch");
 
     // ==============================
     // AMOUNT LAYOUT LOCK UNLOCK
@@ -231,6 +157,7 @@
     // SHOW BET BUTTON
     // ==============================
     function showBetButton() {
+        cashoutButtonVisible = false;
         betButton.style.display = "block";
         waitingButton.style.display = "none";
         cancelButton.style.display = "none";
@@ -242,6 +169,7 @@
     // SHOW WAITING BUTTON
     // ==============================
     function showWaitingButton() {
+        cashoutButtonVisible = false;
         betButton.style.display = "none";
         waitingButton.style.display = "block";
         cancelButton.style.display = "none";
@@ -253,6 +181,7 @@
     // SHOW CANCEL BUTTON
     // ==============================
     function showCancelButton() {
+        cashoutButtonVisible = false;
         betButton.style.display = "none";
         waitingButton.style.display = "none";
         cancelButton.style.display = "block";
@@ -264,6 +193,7 @@
     // SHOW CASHOUT BUTTON
     // ==============================
     function showCashoutButton() {
+        cashoutButtonVisible = true;
         betButton.style.display = "none";
         waitingButton.style.display = "none";
         cancelButton.style.display = "none";
@@ -347,18 +277,33 @@
                 result.payout
             );
 
-            // Cashout Button সরিয়ে Bet Button দেখাবে
-            showBetButton();
-
-            // Amount Unlock
-            unlockAmountLayout();
-
-            // Cashout Popup
+            // ==============================
+            // CASHOUT POPUP
+            // ==============================
             if (typeof window.showCashoutPopup === "function") {
                 window.showCashoutPopup(
                     cashoutMultiplier.toFixed(2),
                     payout.toFixed(2)
                 );
+            }
+
+            // ==============================
+            // AUTO BET NEXT ROUND
+            // ==============================
+            if (autoBetSwitch.classList.contains("on")) {
+
+                const result = placeBet1();
+
+                if (result === false) {
+                    autoBetSwitch.classList.remove("on");
+                    autoBetSwitch.classList.add("off");
+                    showBetButton();
+                    unlockAmountLayout();
+                }
+
+            } else {
+                showBetButton();
+                unlockAmountLayout();
             }
         }
 
@@ -417,9 +362,18 @@
         if (!pendingBet) {
             return;
         }
+
         restoreBetButton();
         unlockAmountLayout();
+
         console.log("BET 1 WAITING BET CANCELLED");
+
+        // AUTO BET SWITCH OFF
+        if (autoBetSwitch.classList.contains("on")) {
+            autoBetStopRequested = false;
+            autoBetSwitch.classList.remove("on");
+            autoBetSwitch.classList.add("off");
+        }
     });
 
     // ==============================
@@ -448,17 +402,29 @@
             }
             const result = window.balanceManager.cancelBet(1);
             cancelInProgress = false;
-            if (!result.success) {
-                console.log("BET 1 CANCEL FAILED:", result.reason);
-                return;
-            }
-            console.log(
-                "BET 1 CANCELLED",
-                "REFUNDED:",
-                result.balance
-            );
+
+
+
+
+if (!result.success) {
+    console.log("BET 1 CANCEL FAILED:", result.reason);
+    autoBetStopRequested = false;
+    return;
+
+}
+
             showBetButton();
             unlockAmountLayout();
+
+
+            //AUTO BET SWITCH OFF
+            if (autoBetSwitch.classList.contains("on")) {
+                autoBetStopRequested = false;
+                autoBetSwitch.classList.remove("on");
+                autoBetSwitch.classList.add("off");
+            }
+
+
         }, delay);
     });
 
@@ -505,13 +471,13 @@
         }
         if (!isProgressVisible()) return;
         const bottomLeftLayout = document.getElementById("bottom-left-layout");
-        // CancelLayout এবং Shadow একসাথে দেখাও
-        showCancelButton();
+        // WaitingLayout এবং Shadow একসাথে দেখাও
+        showWaitingButton();
         if (bottomLeftLayout) {
             bottomLeftLayout.classList.add("balance-delay");
         }
-        // Random delay: 500–1000ms
-        const delay = 300 + Math.floor(Math.random() * 300);
+        // Random delay: 300–599ms
+        const delay = 100 + Math.floor(Math.random() * 300);
         pendingTimer = setTimeout(() => {
             if (bottomLeftLayout) {
                 bottomLeftLayout.classList.remove("balance-delay");
@@ -520,89 +486,192 @@
             if (!pendingBet || requestId !== pendingRequestId) {
                 return;
             }
-            // Shadow চলে যাওয়ার পর Balance কাটবে
+
+            // Betting Time শেষ হলে Bet নেওয়া হবে না
+            if (!isProgressVisible()) {
+                pendingBet = false;
+                pendingAmount = 0;
+                pendingRequestId++;
+                showBetButton();
+                unlockAmountLayout();
+
+                console.log("BET 1 STATE TIMEOUT: BET NOT ACCEPTED");
+
+                if (typeof window.showStateTimeoutPopup === "function") {
+                    window.showStateTimeoutPopup();
+                }
+
+                return;
+            }
+
+            // সময় ঠিক থাকলে Balance কাটবে
             deductBet(amount);
         }, delay);
-    }  
+    }
     
     
     // ==============================
-    // BET BUTTON CLICK
+    // BET 1 PLACE BET FUNCTION
     // ==============================
-    betButton.addEventListener("click", function () {
+    function placeBet1() {
 
-    if (cancelInProgress || cancelRefundTimer !== null || cashoutInProgress) {
-        return;
-    }
-
-    if (pendingBet) {
-        return;
-    }
-
-    if (window.balanceManager.getActiveBet(1) !== null) {
-        return;
-    }
-
-    // ==============================
-    // GET BET AMOUNT
-    // ==============================
-    const amount = getAmount();
-    setAmount(amount);
-
-    // ==============================
-    // FIRST: BALANCE CHECK
-    // ==============================
-    const check = window.balanceManager.canPlaceBet(1, amount);
-    if (!check.success) {
-        if (check.reason === "insufficient_balance") {
-            if (typeof window.showNoBalancePopup === "function") {
-                window.showNoBalancePopup();
-            } else {
-                console.error("showNoBalancePopup function not loaded!");
-            }
+        if (cancelInProgress || cancelRefundTimer !== null || cashoutInProgress) {
+            return false;
         }
-        return;
-    }
 
-    // ==============================
-    // AUTO CASHOUT TARGET SETUP
-    // ==============================
-    const cashoutSwitch = document.getElementById("bet1-cashout-switch");
-    const cashoutInput = document.getElementById("bet1-cashout-input");
+        if (pendingBet) {
+            return false;
+        }
 
-    // আগের Bet-এর Auto Cashout Target Reset
-    autoCashoutTarget = null;
-    autoCashoutCancelled = false;
+        if (window.balanceManager.getActiveBet(1) !== null) {
+            return false;
+        }
 
-    // Switch ON থাকলেই Auto Cashout চালু হবে
-    if (cashoutSwitch.classList.contains("on")) {
-        window.validateAutoCashoutValue1();
-        autoCashoutTarget = parseFloat(cashoutInput.value);
-        console.log("BET 1 AUTO CASHOUT TARGET:", autoCashoutTarget);
-    }
+        // ==============================
+        // GET BET AMOUNT
+        // ==============================
+        const amount = getAmount();
+        setAmount(amount);
 
-    // AMOUNT LAYOUT LOCK
-    lockAmountLayout();
+        // ==============================
+        // FIRST: BALANCE CHECK
+        // ==============================
+        const check = window.balanceManager.canPlaceBet(1, amount);
 
-    // CASE 1: PROGRESS VISIBLE
-    if (isProgressVisible()) {
+        if (!check.success) {
+            if (check.reason === "insufficient_balance") {
+                if (typeof window.showNoBalancePopup === "function") {
+                    window.showNoBalancePopup();
+                } else {
+                    console.error("showNoBalancePopup function not loaded!");
+                }
+            }
+            return false;
+        }
+
+        // ==============================
+        // AUTO CASHOUT TARGET SETUP
+        // ==============================
+        const cashoutSwitch = document.getElementById("bet1-cashout-switch");
+        const cashoutInput = document.getElementById("bet1-cashout-input");
+
+        // আগের Bet-এর Auto Cashout Target Reset
+        autoCashoutTarget = null;
+        autoCashoutCancelled = false;
+
+        // Switch ON থাকলেই Auto Cashout চালু হবে
+        if (cashoutSwitch.classList.contains("on")) {
+            window.validateAutoCashoutValue1();
+            autoCashoutTarget = parseFloat(cashoutInput.value);
+            console.log("BET 1 AUTO CASHOUT TARGET:", autoCashoutTarget);
+        }
+
+        // ==============================
+        // AMOUNT LAYOUT LOCK
+        // ==============================
+        lockAmountLayout();
+
+        // ==============================
+        // CASE 1: PROGRESS VISIBLE
+        // ==============================
+        if (isProgressVisible()) {
+            pendingBet = true;
+            pendingAmount = amount;
+            pendingRequestId++;
+            processPendingBet();
+            return true;
+        }
+
+        // ==============================
+        // CASE 2: FLYING OR CRASHED
+        // ==============================
         pendingBet = true;
         pendingAmount = amount;
         pendingRequestId++;
-        processPendingBet();
-        return;
+
+        showWaitingButton();
+
+        console.log("BET 1 PENDING:", pendingAmount, "ROUND STATE:", roundState);
+
+        return true;
     }
 
-    // CASE 2: FLYING OR CRASHED
-    pendingBet = true;
-    pendingAmount = amount;
-    pendingRequestId++;
-    showWaitingButton();
-    console.log("BET 1 PENDING:",pendingAmount,"ROUND STATE:",roundState);
 
-    });
+    // ==============================
+    // BET BUTTON CLICK
+    // ==============================
+    betButton.addEventListener("click", placeBet1);
+
+  
+    // ==============================
+    // AUTO BET SWITCH
+    // ==============================
+    if (autoBetSwitch) {
+        autoBetSwitch.addEventListener("click", function () {
+
+            if (autoBetSwitchLock) {
+                return;
+            }
+
+            // SWITCH OFF → ON
+            if (!this.classList.contains("on")) {
+                this.classList.remove("off");
+                this.classList.add("on");
+
+                autoBetStopRequested = false;
+
+                // আগে থেকেই Bet Pending, Active অথবা Next Round-এর জন্য অপেক্ষা করলে নতুন Bet হবে না
+                if (pendingBet || window.balanceManager.getActiveBet(1) !== null ) {
+                    return;
+                }
+
+                const result = placeBet1();
+
+                if (result === false) {
+                    this.classList.remove("on");
+                    this.classList.add("off");
+                }
+
+                return;
+            }
+
+            // SWITCH ON → OFF REQUEST
+
+            // CASHOUT BUTTON দৃশ্যমান থাকলে শুধু Switch OFF
+            if (cashoutButtonVisible || cashoutInProgress || cashoutTimer !== null) {
+                this.classList.remove("on");
+                this.classList.add("off");
+                autoBetStopRequested = false;
+                return;
+            }
+
+            const activeBet = window.balanceManager.getActiveBet(1);
+
+            // ACTIVE BET CANCEL
+            if (activeBet !== null) {
+                autoBetStopRequested = true;
+                cancelButton.click();
+                return;
+            }
+
+            // WAITING BET CANCEL
+            if (pendingBet) {
+                autoBetStopRequested = true;
+                waitingButton.click();
+                return;
+            }
+
+            this.classList.remove("on");
+            this.classList.add("off");
+        });
+    }
 
 
+
+  // autoBetSwitch.addEventListener("click", function () {
+    //     this.classList.toggle("on");
+    //     this.classList.toggle("off");
+    // });
     // ==============================
     // ROUND WAITING START EVENT
     // ==============================
@@ -701,29 +770,45 @@
     // ROUND CRASH EVENT
     // ==============================
     window.addEventListener("roundCrashed", function () {
-    // Cancel বা Cashout চলমান থাকলে Crash logic চলবে না
-    if (cancelInProgress || cashoutInProgress) return;
+        if (cancelInProgress || cashoutInProgress) return;
 
-    const bottomLeftLayout = document.getElementById("bottom-left-layout");
-    // Shadow সরাবে
-    if (bottomLeftLayout) {
-        bottomLeftLayout.classList.remove("balance-delay");
-    }
+        const bottomLeftLayout = document.getElementById("bottom-left-layout");
 
-    // Cashout Button লুকাবে
-    cashoutButton.style.display = "none";
-    // Active Bet হারাবে
-    const result = window.balanceManager.loseBet(1);
-    if (result.success) {
-        console.log("BET 1 LOST:", result.lostAmount);
-        // Bet Button দেখাবে
-        showBetButton();
-        // Amount Unlock করবে
-        unlockAmountLayout();
+        if (bottomLeftLayout) {
+            bottomLeftLayout.classList.remove("balance-delay");
+        }
+
+        const activeBet = window.balanceManager.getActiveBet(1);
+
+        if (activeBet !== null) {
+            const result = window.balanceManager.loseBet(1);
+
+            if (result.success) {
+                console.log("BET 1 LOST:", result.lostAmount);
+            }
+        }
+
+        if (autoBetSwitch.classList.contains("on")) {
+
+            // আগে থেকেই Pending Bet থাকলে নতুন Bet নয়
+            if (!pendingBet) {
+                const result = placeBet1();
+
+                if (result === false) {
+                    autoBetSwitch.classList.remove("on");
+                    autoBetSwitch.classList.add("off");
+                    showBetButton();
+                    unlockAmountLayout();
+                }
+            }
+
+        } else {
+            showBetButton();
+            unlockAmountLayout();
+        }
+
         console.log("BET 1: READY FOR NEXT ROUND");
-    }
     });
-
     // INITIAL BUTTON STATE
     showBetButton();
 
@@ -757,10 +842,69 @@
 
 
 
-// ==================================================
-// AUTO CASHOUT SWITCH BET 1
-// ==================================================
+/* ==================================================
+   BET 1 TABS / BACKSPACE / SWITCHES / AUTO CASHOUT
+================================================== */
 (() => {
+    const bottomLeftLayout = document.getElementById("bottom-left-layout");
+    const betBtn = document.getElementById("left-bet-btn");
+    const autoBetBtn = document.getElementById("left-autobet-btn");
+
+    // ==============================
+    // BET / AUTOBET TABS
+    // ==============================
+    betBtn.addEventListener("click", function () {
+        bottomLeftLayout.classList.remove("auto-mode");
+        betBtn.classList.add("active");
+        autoBetBtn.classList.remove("active");
+    });
+
+    autoBetBtn.addEventListener("click", function () {
+        bottomLeftLayout.classList.add("auto-mode");
+        autoBetBtn.classList.add("active");
+        betBtn.classList.remove("active");
+    });
+
+    // ==============================
+    // BACKSPACE SETUP
+    // ==============================
+    function setupBackspace(inputId) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+
+        input.addEventListener("keydown", function (e) {
+            if (e.key === "Backspace") {
+                const start = this.selectionStart;
+                const end = this.selectionEnd;
+                const value = this.value;
+
+                if (start !== end) {
+                    e.preventDefault();
+                    this.value = value.substring(0, start) + value.substring(end);
+                    this.setSelectionRange(start, start);
+                    return;
+                }
+
+                e.preventDefault();
+
+                if (start > 0) {
+                    this.value = value.substring(0, start - 1) + value.substring(start);
+                    this.setSelectionRange(start - 1, start - 1);
+                } else if (value.length > 0) {
+                    this.value = value.substring(1);
+                    this.setSelectionRange(0, 0);
+                }
+            }
+        });
+    }
+
+    setupBackspace("bet1-amount-input");
+    setupBackspace("bet1-cashout-input");
+
+
+    // ==============================
+    // AUTO CASHOUT ELEMENTS
+    // ==============================
     const switchBtn = document.getElementById("bet1-cashout-switch");
     const input = document.getElementById("bet1-cashout-input");
     const cashoutRight = document.getElementById("bet1-cashout-right");
@@ -768,56 +912,47 @@
     const autoBetLayout = document.getElementById("left-top-autobet");
 
     // ==============================
-    // AUTO CASHOUT VALUE VALIDATION
+    // AUTO CASHOUT VALIDATION
     // ==============================
     window.validateAutoCashoutValue1 = function () {
         let value = parseFloat(input.value.trim());
-        if (isNaN(value)) {
-            value = 1.01;
-        }
-        if (value <= 1.00) {
-            value = 1.01;
-        } else if (value > 100.00) {
-            value = 100.00;
-        }
+        if (isNaN(value)) value = 1.01;
+        if (value <= 1.00) value = 1.01;
+        else if (value > 100.00) value = 100.00;
         input.value = value.toFixed(2);
     };
 
     // ==============================
     // AUTO CASHOUT SWITCH
     // ==============================
+    // ==============================
+    // AUTO CASHOUT SWITCH
+    // ==============================
     function setAutoCashout(enabled) {
-        // Switch OFF হলে Value Format
-        if (!enabled) {
-            validateAutoCashoutValue1();
-        }
+        if (!enabled) window.validateAutoCashoutValue1();
         switchBtn.classList.toggle("on", enabled);
         switchBtn.classList.toggle("off", !enabled);
         input.disabled = !enabled;
         cashoutRight.classList.toggle("locked", !enabled);
         icon.style.pointerEvents = enabled ? "auto" : "none";
-        // ON = AutoBet locked
-        // OFF = AutoBet unlocked
-        autoBetLayout.classList.toggle("locked", enabled);
+        // AUTO BET LAYOUT LOCK / UNLOCK
+        if (autoBetLayout) {
+            autoBetLayout.classList.toggle("locked", enabled);
+        }
     }
 
-    // ==============================
     // DEFAULT OFF
-    // ==============================
     setAutoCashout(false);
 
-    // ==============================
     // SWITCH CLICK
-    // ==============================
-    switchBtn.addEventListener("click", () => {
+    switchBtn.addEventListener("click", function () {
         const enabled = !switchBtn.classList.contains("on");
         setAutoCashout(enabled);
     });
 
-    // ==============================
     // ICON CLICK
-    // ==============================
-    icon.addEventListener("click", () => {
-        validateAutoCashoutValue1();
+    icon.addEventListener("click", function () {
+        window.validateAutoCashoutValue1();
     });
+
 })();

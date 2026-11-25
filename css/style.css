@@ -613,48 +613,42 @@ body {
     }
 
     /* MAIN LAYOUT */
+    /* MAIN LAYOUT */
 
+       /* MAIN LAYOUT */
     #main-layout {
         display: flex;
         flex-direction: column;
         height: auto;
         min-height: 100%;
-        overflow-y: auto;
         overflow-x: hidden;
+        overflow-y: visible;
     }
 
-    /* PLANE LAYOUT */
-
-    #plane-layout {
+    /* COMPLETE PLANE + BET LAYOUT */
+    #plane-parent-layout {
         order: 1;
+        position: relative;
         flex: 0 0 auto;
         width: 100%;
         min-height: 0;
         margin: 0;
+        margin-bottom: 0;
         overflow: visible;
     }
 
-    /* PREVIOUS HISTORY */
-
+    /* PREVIOUS HISTORY - AFTER BET LAYOUT */
     #previous-history {
         order: 2;
-        flex: 0 0 40px;
+        position: relative;
+        flex: 0 0 500px;
         width: 100%;
-        height: 40px;
-        min-height: 40px;
+        height: 500px;
+        min-height: 500px;
         margin: 0;
         border-radius: 0;
         display: flex;
     }
-
-    /* PLANE PARENT */
-
-    #plane-parent-layout {
-        flex: 1;
-        min-height: 0;
-        margin-bottom: 0;
-    }
-
     /* ANIMATION */
 
     #plane-animation-layout {
@@ -695,6 +689,10 @@ body {
         width: 100% !important;
         min-width: 0 !important;
         flex: 0 0 auto !important;
+    }
+        /* HISTORY HORIZONTAL SCROLL HIDE ON MOBILE */
+    #horizontal-scroll {
+        display: none !important;
     }
 
 }
