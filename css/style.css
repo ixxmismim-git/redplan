@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;700;800&display=swap');
 
 
@@ -50,7 +49,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     -webkit-user-select: none !important;
     user-select: none !important;
     -webkit-tap-highlight-color: transparent;
@@ -182,6 +180,17 @@ body {
    6. PLANE LAYOUT
 ================================================== */
 
+#plane-parent-layout {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-bottom: 4px;
+    box-sizing: border-box;
+}
+
 #plane-layout {
     position: relative;
     flex: 1;
@@ -195,17 +204,6 @@ body {
     flex-direction: column;
     overflow: hidden;
     background: #0e0e0e;
-}
-
-#plane-parent-layout {
-    flex: 1;
-    min-width: 0;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    margin-bottom: 4px;
-    box-sizing: border-box;
 }
 
 #plane-top-layout {
@@ -600,12 +598,12 @@ body {
 }
 
 
+
 /* ==================================================
    20. MOBILE RESPONSIVE
 ================================================== */
 
 @media (max-width: 600px) {
-
 
     html,
     body {
@@ -620,48 +618,63 @@ body {
         min-height: 100dvh;
         overflow: visible;
     }
+
+
     /* HEADER */
+
     #top-header {
         padding: 0 9px;
     }
 
-    /* MAIN LAYOUT */
+
     /* MAIN LAYOUT */
 
-       /* MAIN LAYOUT */
     #main-layout {
         display: flex;
         flex-direction: column;
         flex: 0 0 auto;
         height: auto;
         min-height: 0;
-        padding-bottom: 14px;
         overflow: visible;
     }
 
-    /* COMPLETE PLANE + BET LAYOUT */
+
+    /* PLANE PARENT */
+
     #plane-parent-layout {
         order: 1;
         position: relative;
         flex: 0 0 auto;
         width: 100%;
+        height: auto;
         min-height: 0;
         margin: 0;
         margin-bottom: 0;
         overflow: visible;
     }
 
-    /* PREVIOUS HISTORY - AFTER BET LAYOUT */
-      #previous-history {
-        order: 2;
-        position: relative;
-        flex: 0 0 500px;
+
+    /* PLANE LAYOUT */
+
+    #plane-layout {
+        flex: 0 0 auto;
         width: auto;
-        height: 615px;
-        margin: 4px 4px 0 4px;
-        display: flex;
+        height: auto;
+        min-height: 0;
+        margin-left: 4px;
+        margin-right: 4px;
+        overflow: visible;
     }
-    /* ANIMATION */
+
+
+    /* PLANE TOP */
+
+    #plane-top-layout {
+        flex: 0 0 40px;
+    }
+
+
+    /* PLANE ANIMATION */
 
     #plane-animation-layout {
         flex: 0 0 263px;
@@ -670,11 +683,13 @@ body {
         border-radius: 12px;
     }
 
+
     /* MULTIPLIER */
 
     #multiplier {
         font-size: clamp(30px, 7vw, 45px);
     }
+
 
     /* BET 1 ABOVE BET 2 */
 
@@ -685,6 +700,11 @@ body {
         align-items: stretch !important;
         width: 100% !important;
         height: auto !important;
+        min-height: 0 !important;
+        flex: 0 0 auto !important;
+        gap: 4px !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     #bottom-left-layout {
@@ -692,7 +712,10 @@ body {
         position: relative !important;
         width: 100% !important;
         min-width: 0 !important;
+        height: auto !important;
+        min-height: 0 !important;
         flex: 0 0 auto !important;
+        margin: 0 !important;
     }
 
     #bottom-right-layout {
@@ -700,9 +723,28 @@ body {
         position: relative !important;
         width: 100% !important;
         min-width: 0 !important;
+        height: auto !important;
+        min-height: 0 !important;
         flex: 0 0 auto !important;
     }
-        /* HISTORY HORIZONTAL SCROLL HIDE ON MOBILE */
+
+
+    /* PREVIOUS HISTORY */
+
+    #previous-history {
+        order: 2;
+        position: relative;
+        flex: 0 0 500px;
+        width: auto;
+        height: 610px;
+        min-width: 0;
+        margin: 4px 4px 0 4px;
+        display: flex;
+    }
+
+
+    /* HORIZONTAL SCROLL HIDE */
+
     #horizontal-scroll {
         display: none !important;
     }
