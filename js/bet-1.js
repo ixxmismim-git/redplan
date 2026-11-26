@@ -433,11 +433,22 @@ if (!result.success) {
     // ==============================
     function deductBet(amount) {
         const result = window.balanceManager.placeBet(1, amount);
+
         if (!result.success) {
             console.log("BET 1 DEDUCTION FAILED:", result.reason);
-                if (result.reason === "insufficient_balance") {
+
+            if (result.reason === "insufficient_balance") {
+                if (typeof window.showNoBalancePopup === "function") {
                     window.showNoBalancePopup();
                 }
+
+                // AUTO BET SWITCH OFF
+                if (autoBetSwitch.classList.contains("on")) {
+                    autoBetSwitch.classList.remove("on");
+                    autoBetSwitch.classList.add("off");
+                }
+            }
+
             restoreBetButton();
             return false;
         }
@@ -456,6 +467,7 @@ if (!result.success) {
         showCancelButton();
         return true;
     }
+
 
     // ==============================
     // PROCESS PENDING BET
