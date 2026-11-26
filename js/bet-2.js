@@ -931,6 +931,7 @@
     // ==============================
     // BACKSPACE SETUP
     // ==============================
+
     function setupBackspace(inputId) {
         const input = document.getElementById(inputId);
         if (!input) return;
@@ -942,9 +943,19 @@
             const end = this.selectionEnd;
             const value = this.value;
 
-            if (start !== end) {
+            if (start === 0 && end === 0 && value.length > 0) {
                 e.preventDefault();
 
+                requestAnimationFrame(() => {
+                    this.setSelectionRange(value.length, value.length);
+                });
+
+                return;
+            }
+
+            e.preventDefault();
+
+            if (start !== end) {
                 this.value =
                     value.substring(0, start) +
                     value.substring(end);
@@ -952,25 +963,16 @@
                 this.setSelectionRange(start, start);
 
             } else if (start > 0) {
-                e.preventDefault();
-
                 this.value =
                     value.substring(0, start - 1) +
                     value.substring(start);
 
                 this.setSelectionRange(start - 1, start - 1);
-
-            } else if (value.length > 0) {
-                e.preventDefault();
-
-                this.setSelectionRange(value.length, value.length);
             }
 
-            if (e.defaultPrevented) {
-                this.dispatchEvent(new Event("input", {
-                    bubbles: true
-                }));
-            }
+            this.dispatchEvent(new Event("input", {
+                bubbles: true
+            }));
         });
     }
 
