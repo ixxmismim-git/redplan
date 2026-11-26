@@ -865,6 +865,7 @@ if (!result.success) {
         betBtn.classList.remove("active");
     });
 
+
     // ==============================
     // BACKSPACE SETUP
     // ==============================
@@ -872,34 +873,48 @@ if (!result.success) {
         const input = document.getElementById(inputId);
         if (!input) return;
 
-        input.addEventListener("keydown", function (e) {
-            if (e.key === "Backspace") {
-                const start = this.selectionStart;
-                const end = this.selectionEnd;
-                const value = this.value;
+        input.addEventListener("beforeinput", function (e) {
+            if (e.inputType !== "deleteContentBackward") return;
 
-                if (start !== end) {
-                    e.preventDefault();
-                    this.value = value.substring(0, start) + value.substring(end);
-                    this.setSelectionRange(start, start);
-                    return;
-                }
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            const value = this.value;
 
+            if (start !== end) {
                 e.preventDefault();
 
-                if (start > 0) {
-                    this.value = value.substring(0, start - 1) + value.substring(start);
-                    this.setSelectionRange(start - 1, start - 1);
-                } else if (value.length > 0) {
-                    this.value = value.substring(1);
-                    this.setSelectionRange(0, 0);
-                }
+                this.value =
+                    value.substring(0, start) +
+                    value.substring(end);
+
+                this.setSelectionRange(start, start);
+
+            } else if (start > 0) {
+                e.preventDefault();
+
+                this.value =
+                    value.substring(0, start - 1) +
+                    value.substring(start);
+
+                this.setSelectionRange(start - 1, start - 1);
+
+            } else if (value.length > 0) {
+                e.preventDefault();
+
+                this.setSelectionRange(value.length, value.length);
+            }
+
+            if (e.defaultPrevented) {
+                this.dispatchEvent(new Event("input", {
+                    bubbles: true
+                }));
             }
         });
     }
 
     setupBackspace("bet1-amount-input");
     setupBackspace("bet1-cashout-input");
+
 
 
     // ==============================
