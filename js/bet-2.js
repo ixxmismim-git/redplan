@@ -290,17 +290,16 @@
             }
 
             // AUTO BET NEXT ROUND
+            // AUTO BET NEXT ROUND
             if (autoBetSwitch.classList.contains("on")) {
-
+                window.unlockBet2RemoveLayout();
                 const nextBet = placeBet2();
-
                 if (nextBet === false) {
                     autoBetSwitch.classList.remove("on");
                     autoBetSwitch.classList.add("off");
                     showBetButton();
                     unlockAmountLayout();
                 }
-
             } else {
                 showBetButton();
                 unlockAmountLayout();
@@ -810,6 +809,9 @@
 
         if (autoBetSwitch.classList.contains("on")) {
 
+            // শুধু Remove Layout Unlock
+            window.unlockBet2RemoveLayout();
+
             // আগে থেকেই Pending Bet থাকলে নতুন Bet নয়
             if (!pendingBet) {
                 const result = placeBet2();
@@ -828,7 +830,9 @@
         }
 
         console.log("BET 2: READY FOR NEXT ROUND");
+
     });
+
 
     // INITIAL BUTTON STATE
     showBetButton();
