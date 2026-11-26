@@ -880,9 +880,22 @@ if (!result.success) {
             const end = this.selectionEnd;
             const value = this.value;
 
-            if (start !== end) {
+            if (start === 0 && end === 0 && value.length > 0) {
                 e.preventDefault();
 
+                requestAnimationFrame(() => {
+                    this.setSelectionRange(
+                        this.value.length,
+                        this.value.length
+                    );
+                });
+
+                return;
+            }
+
+            e.preventDefault();
+
+            if (start !== end) {
                 this.value =
                     value.substring(0, start) +
                     value.substring(end);
@@ -890,30 +903,33 @@ if (!result.success) {
                 this.setSelectionRange(start, start);
 
             } else if (start > 0) {
-                e.preventDefault();
-
                 this.value =
                     value.substring(0, start - 1) +
                     value.substring(start);
 
-                this.setSelectionRange(start - 1, start - 1);
+                const newPosition = start - 1;
 
-            } else if (value.length > 0) {
-                e.preventDefault();
+                this.setSelectionRange(newPosition, newPosition);
 
-                this.setSelectionRange(value.length, value.length);
+                if (newPosition === 0 && this.value.length > 0) {
+                    requestAnimationFrame(() => {
+                        this.setSelectionRange(
+                            this.value.length,
+                            this.value.length
+                        );
+                    });
+                }
             }
 
-            if (e.defaultPrevented) {
-                this.dispatchEvent(new Event("input", {
-                    bubbles: true
-                }));
-            }
+            this.dispatchEvent(new Event("input", {
+                bubbles: true
+            }));
         });
     }
 
     setupBackspace("bet1-amount-input");
     setupBackspace("bet1-cashout-input");
+
 
 
 

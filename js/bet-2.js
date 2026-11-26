@@ -931,7 +931,6 @@
     // ==============================
     // BACKSPACE SETUP
     // ==============================
-
     function setupBackspace(inputId) {
         const input = document.getElementById(inputId);
         if (!input) return;
@@ -947,7 +946,10 @@
                 e.preventDefault();
 
                 requestAnimationFrame(() => {
-                    this.setSelectionRange(value.length, value.length);
+                    this.setSelectionRange(
+                        this.value.length,
+                        this.value.length
+                    );
                 });
 
                 return;
@@ -967,7 +969,18 @@
                     value.substring(0, start - 1) +
                     value.substring(start);
 
-                this.setSelectionRange(start - 1, start - 1);
+                const newPosition = start - 1;
+
+                this.setSelectionRange(newPosition, newPosition);
+
+                if (newPosition === 0 && this.value.length > 0) {
+                    requestAnimationFrame(() => {
+                        this.setSelectionRange(
+                            this.value.length,
+                            this.value.length
+                        );
+                    });
+                }
             }
 
             this.dispatchEvent(new Event("input", {
@@ -978,6 +991,7 @@
 
     setupBackspace("bet2-amount-input");
     setupBackspace("bet2-cashout-input");
+
 
 
 
